@@ -112,7 +112,10 @@ app.get('/api/projects', async (req, res) => {
         poster_image,
         allTags,
         description,
-        images,
+        images[] {
+          asset,
+          caption
+        },
         video_url,
         home_studio-> {
           _id,
@@ -151,7 +154,7 @@ app.get('/api/projects', async (req, res) => {
           .url()
       }
 
-      // Process additional images
+      // Process additional images - keep both the URLs and the full objects
       if (project.images && Array.isArray(project.images)) {
         project.images_urls = project.images.map(img => {
           if (img.asset) {
@@ -164,6 +167,23 @@ app.get('/api/projects', async (req, res) => {
           }
           return null
         }).filter(Boolean)
+        
+        // Also process images to include captions
+        project.images = project.images.map(img => {
+          if (img.asset) {
+            return {
+              asset: img.asset,
+              caption: img.caption,
+              url: builder
+                .image(img)
+                .width(800)
+                .height(600)
+                .fit('crop')
+                .url()
+            }
+          }
+          return img
+        })
       }
 
       // Process studio poster image

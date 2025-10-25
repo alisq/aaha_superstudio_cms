@@ -17,9 +17,7 @@ const FilterDropdown = ({
 
   return (
     <div className="filter-dropdown">
-      <label htmlFor={id} className="filter-label">
-        {label}:
-      </label>
+      
       <select
         id={id}
         value={selectedValue}

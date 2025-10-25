@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProjectCard.css';
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, onClick }) => {
   const safeRender = (value) => {
     if (value === null || value === undefined) return '';
     if (typeof value === 'object') return JSON.stringify(value);
@@ -9,7 +9,7 @@ const ProjectCard = ({ project }) => {
   };
 
   return (
-    <div className="project-card">
+    <div className="project-card" onClick={onClick}>
       {/* Project Image */}
       {(project.poster_image_url || project.poster_image) && (
         <div className="project-image">

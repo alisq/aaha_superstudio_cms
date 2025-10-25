@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Isotope from 'isotope-layout';
 import ProjectCard from './ProjectCard';
+import ProjectDetail from './ProjectDetail';
 import './ProjectsList.css';
 
 const ProjectsList = ({ selectedTag, selectedInstitution, selectedDemand }) => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
   const isotope = useRef(null);
   const isotopeContainer = useRef(null);
 
@@ -183,17 +185,29 @@ const ProjectsList = ({ selectedTag, selectedInstitution, selectedDemand }) => {
       {filteredProjects.length === 0 ? (
         <p className="no-results">No projects found matching your filters.</p>
       ) : (
-        <div ref={isotopeContainer} className="isotope-grid">
-          <div className="project-sizer"></div>
-          {projects.map((project) => (
-            <div 
-              key={project._id} 
-              className={`project-item ${getFilterSelector(project)}`}
-            >
-              <ProjectCard project={project} />
-            </div>
-          ))}
-        </div>
+        <>
+          <div ref={isotopeContainer} className="isotope-grid">
+            <div className="project-sizer"></div>
+            {projects.map((project) => (
+              <div 
+                key={project._id} 
+                className={`project-item ${getFilterSelector(project)}`}
+              >
+                <ProjectCard 
+                  project={project}
+                  onClick={() => setSelectedProject(project)}
+                />
+              </div>
+            ))}
+          </div>
+          
+          {selectedProject && (
+            <ProjectDetail 
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+            />
+          )}
+        </>
       )}
     </div>
   );

@@ -3,4 +3,15 @@ body {
   color: #FFFFFF;
 }
 
+.filter-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 1em;
+  padding: 1em;
+}
+
+main {
+  padding: 1em;
+}
+
 /*# sourceMappingURL=main.css.map */

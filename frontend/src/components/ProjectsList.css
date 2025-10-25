@@ -22,7 +22,7 @@
 
 .project-sizer,
 .project-item {
-  width: calc(33.333% - 14px);
+  width: calc(25% - 14px);
   margin-bottom: 20px;
 }
 

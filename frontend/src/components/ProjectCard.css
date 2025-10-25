@@ -4,11 +4,13 @@
   padding: 20px;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
 }
 
 .project-card:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
 }
 
 .project-image {
