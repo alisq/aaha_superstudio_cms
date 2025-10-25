@@ -1,0 +1,53 @@
+.projects-list {
+  margin-top: 40px;
+}
+
+.projects-list h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 16px;
+}
+
+/* Isotope Grid */
+.isotope-grid {
+  position: relative;
+}
+
+.project-sizer,
+.project-item {
+  width: calc(33.333% - 14px);
+  margin-bottom: 20px;
+}
+
+/* Responsive Grid */
+@media (max-width: 1024px) {
+  .project-sizer,
+  .project-item {
+    width: calc(50% - 10px);
+  }
+}
+
+@media (max-width: 640px) {
+  .project-sizer,
+  .project-item {
+    width: 100%;
+  }
+}
+
+/* Isotope Animation */
+.project-item {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.project-item.isotope-hidden {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+}
