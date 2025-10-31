@@ -36,6 +36,15 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'allStudents',
+      title: 'Students',
+      type: 'tags',
+      options: {
+        includeFromRelated: 'allStudents'        
+      }
+    }),
+    
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -97,12 +106,13 @@ export default defineType({
     ],
   }),
   defineField({
-      name: 'images',
-      title: 'Images',
+      name: 'media',
+      title: 'Media',
       type: 'array',
       of: [
         {
           type: 'image',
+          title: 'Image',
           options: { hotspot: true },
           fields: [
             {
@@ -120,12 +130,30 @@ export default defineType({
             },
           ],
         },
+        {
+          type: 'object',
+          name: 'video',
+          title: 'Video URL',
+          fields: [
+            {
+              name: 'video_url',
+              title: 'Video URL',
+              type: 'url',
+            },
+          ],
+          preview: {
+            select: {
+              url: 'video_url',
+            },
+            prepare({ url }) {
+              return {
+                title: 'Video',
+                subtitle: url || 'No URL provided',
+              }
+            },
+          },
+        },
       ],
-    }),
-    defineField({
-      name: 'video_url',
-      title: 'Video URL',
-      type: 'url',
     }),
 
     

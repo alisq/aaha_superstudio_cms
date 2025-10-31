@@ -4,7 +4,7 @@ const { createClient } = require('@sanity/client')
 const imageUrlBuilder = require('@sanity/image-url')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 // Enable CORS for all routes
 app.use(cors())

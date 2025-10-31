@@ -11,6 +11,7 @@
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
     "api": "node server.js",
+    "server": "node server.js",
     "test-api": "node test-api.js"
   },
   "keywords": [
@@ -19,13 +20,13 @@
   "dependencies": {
     "@sanity/client": "^6.10.0",
     "@sanity/image-url": "^1.2.0",
-    "@sanity/vision": "^4.11.0",
+    "@sanity/vision": "^4.12.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "react": "^19.1",
     "react-dom": "^19.1",
     "react-icons": "^3.11.0",
-    "sanity": "^4.11.0",
+    "sanity": "^4.12.0",
     "sanity-plugin-tags-v4": "^1.0.3",
     "styled-components": "^6.1.18"
   },
