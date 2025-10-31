@@ -134,6 +134,72 @@ If you want more control over the process:
 
 ## Troubleshooting
 
+### GLIBC Version Errors (GLIBC_2.27/2.28 not found)
+
+If you see errors like:
+```
+node: version `GLIBC_2.27' not found
+node: version `GLIBCXX_3.4.21' not found
+```
+
+This means your Node.js binary is too new for your server's GLIBC version. **Solutions:**
+
+**Solution 1: Use NVM (Node Version Manager) - Recommended**
+
+1. Install NVM:
+   ```bash
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+   source ~/.bashrc
+   ```
+
+2. Install a compatible Node.js version (LTS 16 or 18 work well with older systems):
+   ```bash
+   nvm install 18
+   nvm use 18
+   nvm alias default 18
+   ```
+
+3. Verify Node version:
+   ```bash
+   node --version
+   which node
+   ```
+
+4. Update your start command in Opalstack panel to use the NVM Node:
+   - Instead of `npm run server`, use: `/home/your-username/.nvm/versions/node/v18.x.x/bin/node server.js`
+   - Or set PATH in environment variables: `PATH=/home/your-username/.nvm/versions/node/v18.x.x/bin:$PATH`
+
+**Solution 2: Use Opalstack's Built-in Node.js**
+
+1. Check if Opalstack provides Node.js:
+   ```bash
+   which node
+   opalstack-cli nodejs list  # If you have opalstack-cli
+   ```
+
+2. Use the system-provided Node version if available
+
+**Solution 3: Check System Node Version**
+
+1. Check what's available:
+   ```bash
+   ls -la /usr/bin/node*
+   /usr/bin/node --version  # If it exists
+   ```
+
+2. If an older Node is available, use it directly:
+   ```bash
+   /usr/bin/node server.js
+   ```
+
+**Solution 4: Use Node 16 (Better Compatibility)**
+
+Node 16 has better compatibility with older GLIBC versions. Install via NVM:
+```bash
+nvm install 16
+nvm use 16
+```
+
 ### Application Not Starting
 
 1. Check logs in Opalstack panel → **Logs**
@@ -141,6 +207,13 @@ If you want more control over the process:
    ```bash
    cd ~/apps/superstudio-api/cms
    npm run server
+   ```
+
+3. Check Node and npm versions:
+   ```bash
+   node --version
+   npm --version
+   which node
    ```
 
 ### Port Issues
@@ -158,6 +231,11 @@ Make sure you're running `npm install` from the `cms` directory:
 ```bash
 cd ~/apps/superstudio-api/cms
 npm install
+```
+
+If you get permission errors, use:
+```bash
+npm install --production --prefix ~/apps/superstudio-api/cms
 ```
 
 ## File Structure on Opalstack
