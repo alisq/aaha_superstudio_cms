@@ -109,6 +109,7 @@ export default defineType({
       name: 'media',
       title: 'Media',
       type: 'array',
+      validation: Rule => Rule.max(10),
       of: [
         {
           type: 'image',
