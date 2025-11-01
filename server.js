@@ -21,6 +21,19 @@ const client = createClient({
 // Image URL builder
 const builder = imageUrlBuilder(client)
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Superstudio CMS API',
+    version: '1.0.0',
+    endpoints: {
+      filters: '/api/filters',
+      projects: '/api/projects',
+      health: '/api/health'
+    }
+  })
+})
+
 // Filters endpoint
 app.get('/api/filters', async (req, res) => {
   try {
