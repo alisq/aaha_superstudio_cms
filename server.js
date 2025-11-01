@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const path = require('path')
 const { createClient } = require('@sanity/client')
 const imageUrlBuilder = require('@sanity/image-url')
 
@@ -9,6 +10,28 @@ const port = process.env.PORT || 3000
 // Enable CORS for all routes
 app.use(cors())
 app.use(express.json())
+
+// Serve Sanity Studio static files from dist directory
+const studioPath = path.join(__dirname, 'dist')
+const fs = require('fs')
+
+// Only serve Studio if dist directory exists
+if (fs.existsSync(studioPath)) {
+  app.use('/studio', express.static(studioPath))
+  
+  // Serve Sanity Studio for all /studio routes (SPA routing)
+  app.get('/studio/*', (req, res) => {
+    res.sendFile(path.join(studioPath, 'index.html'))
+  })
+} else {
+  // Fallback if Studio not built yet
+  app.get('/studio', (req, res) => {
+    res.status(503).json({ 
+      message: 'Sanity Studio is not built. Run "npm run build" to build it.',
+      instructions: 'The Studio will be available at /studio after building.'
+    })
+  })
+}
 
 // Sanity client
 const client = createClient({
@@ -29,7 +52,8 @@ app.get('/', (req, res) => {
     endpoints: {
       filters: '/api/filters',
       projects: '/api/projects',
-      health: '/api/health'
+      health: '/api/health',
+      studio: '/studio'
     }
   })
 })
