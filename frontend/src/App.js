@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     const fetchFilters = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/filters');
+        const response = await fetch('https://web-production-5b697.up.railway.app/api/filters');
         if (!response.ok) {
           throw new Error('Failed to fetch filters');
         }

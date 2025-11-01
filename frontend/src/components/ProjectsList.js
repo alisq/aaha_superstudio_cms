@@ -16,7 +16,7 @@ const ProjectsList = ({ selectedTag, selectedInstitution, selectedDemand }) => {
     const fetchProjects = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:3000/api/projects');
+        const response = await fetch('https://web-production-5b697.up.railway.app/api/projects');
         if (!response.ok) {
           throw new Error('Failed to fetch projects');
         }
