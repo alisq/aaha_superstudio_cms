@@ -21,19 +21,47 @@ console.log(`Sanity Studio path: ${studioPath}`)
 console.log(`Studio exists: ${studioExists}`)
 
 if (studioExists) {
-  // Serve static assets from /studio/static and /studio/vendor
-  app.use('/studio/static', express.static(path.join(studioPath, 'static')))
-  app.use('/studio/vendor', express.static(path.join(studioPath, 'vendor')))
+  // Set proper MIME types for JavaScript modules
+  const setMimeType = (res, filepath) => {
+    if (filepath.endsWith('.mjs')) {
+      res.setHeader('Content-Type', 'application/javascript')
+      res.setHeader('X-Content-Type-Options', 'nosniff')
+    } else if (filepath.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript')
+    } else if (filepath.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css')
+    } else if (filepath.endsWith('.json')) {
+      res.setHeader('Content-Type', 'application/json')
+    }
+  }
+
+  // IMPORTANT: Serve vendor and static files BEFORE any /studio routes
+  // These must be handled first to prevent the /studio/* catch-all from intercepting them
   
-  // Also serve /static directly (for absolute paths in HTML)
-  app.use('/static', express.static(path.join(studioPath, 'static')))
+  // Serve vendor files - express.static will handle all sub-paths
+  app.use('/vendor', express.static(path.join(studioPath, 'vendor'), {
+    setHeaders: setMimeType,
+    index: false
+  }))
   
-  // Serve index.html for all /studio routes (SPA routing) - MUST be last
+  // Serve static files
+  app.use('/static', express.static(path.join(studioPath, 'static'), {
+    setHeaders: setMimeType,
+    index: false
+  }))
+  
+  // Now handle /studio routes - MUST be after static file routes
   app.get('/studio', (req, res) => {
     res.sendFile(path.join(studioPath, 'index.html'))
   })
   
-  app.get('/studio/*', (req, res) => {
+  // Catch-all for /studio/* routes - serves the SPA
+  // But exclude paths that should be handled by static middleware
+  app.get('/studio/*', (req, res, next) => {
+    // Safety check: if this is a static asset request, let it pass through
+    if (req.path.includes('/vendor/') || req.path.includes('/static/')) {
+      return next()
+    }
     res.sendFile(path.join(studioPath, 'index.html'))
   })
 } else {
