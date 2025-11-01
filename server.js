@@ -15,11 +15,24 @@ app.use(express.json())
 const studioPath = path.join(__dirname, 'dist')
 const fs = require('fs')
 
-// Only serve Studio if dist directory exists
-if (fs.existsSync(studioPath)) {
-  app.use('/studio', express.static(studioPath))
+// Check if Studio is built
+const studioExists = fs.existsSync(studioPath)
+console.log(`Sanity Studio path: ${studioPath}`)
+console.log(`Studio exists: ${studioExists}`)
+
+if (studioExists) {
+  // Serve static assets from /studio/static and /studio/vendor
+  app.use('/studio/static', express.static(path.join(studioPath, 'static')))
+  app.use('/studio/vendor', express.static(path.join(studioPath, 'vendor')))
   
-  // Serve Sanity Studio for all /studio routes (SPA routing)
+  // Also serve /static directly (for absolute paths in HTML)
+  app.use('/static', express.static(path.join(studioPath, 'static')))
+  
+  // Serve index.html for all /studio routes (SPA routing) - MUST be last
+  app.get('/studio', (req, res) => {
+    res.sendFile(path.join(studioPath, 'index.html'))
+  })
+  
   app.get('/studio/*', (req, res) => {
     res.sendFile(path.join(studioPath, 'index.html'))
   })
@@ -27,8 +40,17 @@ if (fs.existsSync(studioPath)) {
   // Fallback if Studio not built yet
   app.get('/studio', (req, res) => {
     res.status(503).json({ 
-      message: 'Sanity Studio is not built. Run "npm run build" to build it.',
-      instructions: 'The Studio will be available at /studio after building.'
+      message: 'Sanity Studio is not built. Run "npm run build:studio" to build it.',
+      instructions: 'The Studio will be available at /studio after building.',
+      path: studioPath
+    })
+  })
+  
+  app.get('/studio/*', (req, res) => {
+    res.status(503).json({ 
+      message: 'Sanity Studio is not built. Run "npm run build:studio" to build it.',
+      instructions: 'The Studio will be available at /studio after building.',
+      path: studioPath
     })
   })
 }
