@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const path = require('path')
 const { createClient } = require('@sanity/client')
 const imageUrlBuilder = require('@sanity/image-url')
 
@@ -11,102 +10,16 @@ const port = process.env.PORT || 3000
 app.use(cors())
 app.use(express.json())
 
-// Serve Sanity Studio static files from dist directory
-const studioPath = path.join(__dirname, 'dist')
-const fs = require('fs')
-
-// Check if Studio is built
-const studioExists = fs.existsSync(studioPath)
-console.log(`Sanity Studio path: ${studioPath}`)
-console.log(`Studio exists: ${studioExists}`)
-
-if (studioExists) {
-  // Set proper MIME types for JavaScript modules
-  const setMimeType = (res, filepath) => {
-    if (filepath.endsWith('.mjs')) {
-      res.setHeader('Content-Type', 'application/javascript')
-      res.setHeader('X-Content-Type-Options', 'nosniff')
-    } else if (filepath.endsWith('.js')) {
-      res.setHeader('Content-Type', 'application/javascript')
-    } else if (filepath.endsWith('.css')) {
-      res.setHeader('Content-Type', 'text/css')
-    } else if (filepath.endsWith('.json')) {
-      res.setHeader('Content-Type', 'application/json')
-    }
-  }
-
-  // IMPORTANT: Serve vendor and static files BEFORE any /studio routes
-  // These must be handled first to prevent the /studio/* catch-all from intercepting them
-  
-  // Serve vendor files - express.static will handle all sub-paths
-  app.use('/vendor', express.static(path.join(studioPath, 'vendor'), {
-    setHeaders: setMimeType,
-    index: false
-  }))
-  
-  // Serve static files
-  app.use('/static', express.static(path.join(studioPath, 'static'), {
-    setHeaders: setMimeType,
-    index: false
-  }))
-  
-  // Now handle /studio routes - MUST be after static file routes
-  app.get('/studio', (req, res) => {
-    res.sendFile(path.join(studioPath, 'index.html'))
-  })
-  
-  // Catch-all for /studio/* routes - serves the SPA
-  // But exclude paths that should be handled by static middleware
-  app.get('/studio/*', (req, res, next) => {
-    // Safety check: if this is a static asset request, let it pass through
-    if (req.path.includes('/vendor/') || req.path.includes('/static/')) {
-      return next()
-    }
-    res.sendFile(path.join(studioPath, 'index.html'))
-  })
-} else {
-  // Fallback if Studio not built yet
-  app.get('/studio', (req, res) => {
-    res.status(503).json({ 
-      message: 'Sanity Studio is not built. Run "npm run build:studio" to build it.',
-      instructions: 'The Studio will be available at /studio after building.',
-      path: studioPath
-    })
-  })
-  
-  app.get('/studio/*', (req, res) => {
-    res.status(503).json({ 
-      message: 'Sanity Studio is not built. Run "npm run build:studio" to build it.',
-      instructions: 'The Studio will be available at /studio after building.',
-      path: studioPath
-    })
-  })
-}
-
 // Sanity client
 const client = createClient({
-  projectId: '0c912k6j',
-  dataset: 'production',
+  projectId: process.env.SANITY_PROJECT_ID || '0c912k6j',
+  dataset: process.env.SANITY_DATASET || 'production',
   useCdn: true,
   apiVersion: '2024-01-01',
 })
 
 // Image URL builder
 const builder = imageUrlBuilder(client)
-
-// Root endpoint
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Superstudio CMS API',
-    version: '1.0.0',
-    endpoints: {
-      filters: '/api/filters',
-      projects: '/api/projects',
-      health: '/api/health',
-      studio: '/studio'
-    }
-  })
-})
 
 // Filters endpoint
 app.get('/api/filters', async (req, res) => {
@@ -308,3 +221,4 @@ app.listen(port, () => {
   console.log(`- GET /api/projects`)
   console.log(`- GET /api/health`)
 })
+

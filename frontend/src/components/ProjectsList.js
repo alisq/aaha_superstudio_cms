@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Isotope from 'isotope-layout';
 import ProjectCard from './ProjectCard';
 import ProjectDetail from './ProjectDetail';
+import { API_URL } from '../config';
 import './ProjectsList.css';
 
 const ProjectsList = ({ selectedTag, selectedInstitution, selectedDemand }) => {
@@ -16,7 +17,7 @@ const ProjectsList = ({ selectedTag, selectedInstitution, selectedDemand }) => {
     const fetchProjects = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://web-production-5b697.up.railway.app/api/projects');
+        const response = await fetch(`${API_URL}/api/projects`);
         if (!response.ok) {
           throw new Error('Failed to fetch projects');
         }
