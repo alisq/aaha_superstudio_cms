@@ -17,7 +17,11 @@ const ProjectsList = ({ selectedTag, selectedInstitution, selectedDemand }) => {
     const fetchProjects = async () => {
       try {
         setLoading(true);
+<<<<<<< HEAD
         const response = await fetch(`${API_URL}/api/projects`);
+=======
+        const response = await fetch('http://localhost:3000/api/projects');
+>>>>>>> parent of 6e44efc (using railway prodiction)
         if (!response.ok) {
           throw new Error('Failed to fetch projects');
         }
