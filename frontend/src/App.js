@@ -18,7 +18,11 @@ function App() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         const response = await fetch(`${API_URL}/api/filters`);
+=======
+        const response = await fetch('http://localhost:3000/api/filters');
+>>>>>>> parent of 6e44efc (using railway prodiction)
 =======
         const response = await fetch('http://localhost:3000/api/filters');
 >>>>>>> parent of 6e44efc (using railway prodiction)
