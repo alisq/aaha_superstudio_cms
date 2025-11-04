@@ -18,7 +18,11 @@ const ProjectsList = ({ selectedTag, selectedInstitution, selectedDemand }) => {
       try {
         setLoading(true);
 <<<<<<< HEAD
+<<<<<<< HEAD
         const response = await fetch(`${API_URL}/api/projects`);
+=======
+        const response = await fetch('http://localhost:3000/api/projects');
+>>>>>>> parent of 6e44efc (using railway prodiction)
 =======
         const response = await fetch('http://localhost:3000/api/projects');
 >>>>>>> parent of 6e44efc (using railway prodiction)
