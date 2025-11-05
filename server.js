@@ -13,6 +13,8 @@ app.use(express.json())
 
 // Serve Sanity Studio static files from dist directory
 const studioPath = path.join(__dirname, 'dist')
+// Serve Frontend React app from frontend/build directory
+const frontendPath = path.join(__dirname, 'frontend', 'build')
 const fs = require('fs')
 
 // Check if Studio is built
@@ -94,20 +96,7 @@ const client = createClient({
 // Image URL builder
 const builder = imageUrlBuilder(client)
 
-// Root endpoint
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Superstudio CMS API',
-    version: '1.0.0',
-    endpoints: {
-      filters: '/api/filters',
-      projects: '/api/projects',
-      health: '/api/health',
-      studio: '/studio'
-    }
-  })
-})
-
+// API Routes - must be defined BEFORE frontend catch-all
 // Filters endpoint
 app.get('/api/filters', async (req, res) => {
   try {
@@ -301,10 +290,52 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'API server is running' })
 })
 
+// Serve Frontend React app - MUST be after all API routes
+const frontendExists = fs.existsSync(frontendPath)
+console.log(`Frontend path: ${frontendPath}`)
+console.log(`Frontend exists: ${frontendExists}`)
+
+if (frontendExists) {
+  // Serve static files from React build (CSS, JS, images, etc.)
+  app.use(express.static(frontendPath))
+  
+  // Serve React app for all non-API, non-studio routes
+  // This catch-all must be LAST, after all API and studio routes
+  app.get('*', (req, res, next) => {
+    // Skip API routes (shouldn't reach here, but safety check)
+    if (req.path.startsWith('/api/')) {
+      return next()
+    }
+    // Skip studio routes (shouldn't reach here, but safety check)
+    if (req.path.startsWith('/studio')) {
+      return next()
+    }
+    // Serve React app for all other routes (SPA routing)
+    res.sendFile(path.join(frontendPath, 'index.html'))
+  })
+} else {
+  // Fallback if frontend not built - show API info at root
+  app.get('/', (req, res) => {
+    res.json({
+      message: 'Superstudio CMS API',
+      version: '1.0.0',
+      endpoints: {
+        filters: '/api/filters',
+        projects: '/api/projects',
+        health: '/api/health',
+        studio: '/studio'
+      },
+      note: 'Frontend not built. Run "npm run build:all" to build frontend and studio.'
+    })
+  })
+}
+
 app.listen(port, () => {
   console.log(`API server running at http://localhost:${port}`)
   console.log(`Available endpoints:`)
   console.log(`- GET /api/filters`)
   console.log(`- GET /api/projects`)
   console.log(`- GET /api/health`)
+  console.log(`- Frontend: ${frontendExists ? 'Served from /' : 'Not built'}`)
+  console.log(`- Studio: ${studioExists ? 'Available at /studio' : 'Not built'}`)
 })

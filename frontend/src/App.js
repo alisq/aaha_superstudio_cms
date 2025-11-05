@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProjectsList from './components/ProjectsList';
 import Header from './components/Header';
+import { API_URL } from './config';
 import './css/main.css';
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
   useEffect(() => {
     const fetchFilters = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/filters');
+        const response = await fetch(`${API_URL}/api/filters`);
         if (!response.ok) {
           throw new Error('Failed to fetch filters');
         }

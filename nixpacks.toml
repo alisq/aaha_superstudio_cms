@@ -2,10 +2,10 @@
 nixPkgs = ["nodejs-18_x", "npm-8_x"]
 
 [phases.install]
-cmds = ["npm ci"]
+cmds = ["npm ci", "cd frontend && npm ci"]
 
 [phases.build]
-cmds = ["npm run build:studio"]
+cmds = ["npm run build:studio", "cd frontend && npm run build"]
 
 [start]
 cmd = "node server.js"
