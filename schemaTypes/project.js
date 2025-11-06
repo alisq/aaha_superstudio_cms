@@ -12,6 +12,7 @@ export default defineType({
       name: 'poster_image',
       title: 'Poster Image',
       type: 'image',
+      validation: Rule => Rule.required(),
           options: { hotspot: true },
           fields: [
             {
@@ -29,11 +30,14 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
+      validation: Rule => Rule.required(),
+      
     }),
     defineField({
       name: 'allStudents',
       title: 'Students',
       type: 'tags',
+      validation: Rule => Rule.required(),
       options: {
         includeFromRelated: 'allStudents'        
       }
@@ -52,6 +56,7 @@ export default defineType({
       name: 'home_studio',
       title: 'Home Studio',
       type: 'reference',
+      validation: Rule => Rule.required(),
       to: [{ type: 'studio' }], // assumes you have a "school" schema type defined
     }),
 
@@ -59,6 +64,7 @@ export default defineType({
       name: 'allTags',
       title: 'Tags',
       type: 'tags',
+      validation: Rule => Rule.required(),
       options: {
         includeFromRelated: 'allTags'        
       }
@@ -69,6 +75,7 @@ export default defineType({
     name: 'description',
     title: 'Description',
     type: 'array',
+    validation: Rule => Rule.required(),
     of: [
       {
         type: 'block',
