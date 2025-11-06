@@ -22,11 +22,6 @@ export default defineType({
                 isHighlighted: true, // show in main editing view
               },
             },
-            {
-              name: 'caption',
-              title: 'Caption',
-              type: 'string',
-            },
           ],
         }),
 
@@ -140,6 +135,11 @@ export default defineType({
               name: 'video_url',
               title: 'Video URL',
               type: 'url',
+            },
+            {
+              name: 'caption',
+              title: 'Caption',
+              type: 'string',
             },
           ],
           preview: {
