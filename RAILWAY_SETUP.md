@@ -20,7 +20,7 @@ This guide explains how to deploy both the backend API and frontend React app as
 7. Configure:
    - **Root Directory**: `/` (root)
    - **Build Command**: `npm install`
-   - **Start Command**: `node server.js`
+   - **Start Command**: `  `
    - **Watch Paths**: Leave default
 8. **Redeploy** the service
 
