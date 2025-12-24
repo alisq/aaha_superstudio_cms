@@ -1,7 +1,7 @@
 
 function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio, Tags, Project_Description, Image_1_Alt, Image_1_Caption, Image_2_Alt, Image_2_Caption, Image_3_Alt, Image_3_Caption, Image_4_Alt, Image_4_Caption, Image_5_Alt, Image_5_Caption, Image_6_Alt, Image_6_Caption, Image_7_Alt, Image_7_Caption, Image_8_Alt, Image_8_Caption, Image_9_Alt, Image_9_Caption, Image_10_Alt, Image_10_Caption, URL, Video_URL, Video_Caption, Demands, poster_image, img_01, img_02, img_03, img_04, img_05, img_06, img_07, img_08, img_09, img_10}) {
   return (
-    <p>
+    <div className="submission">
       
           <img src={poster_image} /><br />
         
@@ -34,7 +34,7 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
     <div className="caption">{Image_5_Caption}</div>
 </div>
 
-{img_06 && (
+{(img_06 != "/files/Image_06/") && (
   <div className="image06">
     <img src={img_06} alt={Image_6_Alt || ''} />
     {Image_6_Caption && (
@@ -43,7 +43,7 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
   </div>
 )}
 
-{img_07 && (
+{(img_07 != "/files/Image_07/") && (
   <div className="image07">
     <img src={img_07} alt={Image_7_Alt || ''} />
     {Image_7_Caption && (
@@ -52,7 +52,7 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
   </div>
 )}
 
-{img_08 && (
+{(img_08 != "/files/Image_08/") && (
   <div className="image08">
     <img src={img_08} alt={Image_8_Alt || ''} />
     {Image_8_Caption && (
@@ -61,7 +61,7 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
   </div>
 )}
 
-{img_09 && (
+{(img_09 != "/files/Image_09/") && (
   <div className="image09">
     <img src={img_09} alt={Image_9_Alt || ''} />
     {Image_9_Caption && (
@@ -70,7 +70,7 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
   </div>
 )}
 
-{img_10 && (
+{(img_10 != "/files/Image_10/") && (
   <div className="image10">
     <img src={img_10} alt={Image_10_Alt || ''} />
     {Image_10_Caption && (
@@ -90,7 +90,7 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
 <strong>Desc:</strong> {Project_Description}<br />
 
      
-    </p>
+    </div>
   );
 }
 

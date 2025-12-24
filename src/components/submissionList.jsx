@@ -3,7 +3,7 @@ import Submission from './submission';
 
 function SubmissionList() {
   return (
-    <div>
+    <div className="submissionList">
         
       {submissions.map((item, index) => (
         

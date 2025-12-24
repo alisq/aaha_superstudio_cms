@@ -1,0 +1,13 @@
+img {
+    max-width:100%;
+
+}
+
+.submissionList {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+}
+.submission {
+    padding:1em;
+}
+
