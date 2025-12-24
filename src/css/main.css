@@ -359,4 +359,14 @@ hr {
   border-top: 1px solid #c48726;
 }
 
+@media (max-width: 768px) {
+  .submissionList {
+    column-count: 1;
+  }
+  #filters,
+  .submission-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /*# sourceMappingURL=main.css.map */

@@ -257,3 +257,14 @@ hr {
     border-top:1px solid $accent;
 
 }
+
+@media (max-width: 768px) {
+    .submissionList {
+        column-count:1
+    }
+    #filters,
+    .submission-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
