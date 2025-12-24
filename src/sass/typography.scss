@@ -1,29 +1,100 @@
 @use 'vars.scss' as *;
 
+@font-face {
+    font-family: "AAHA";
+    src: url(./fonts/AAHA-Regular.woff2) format(woff2);
+}
+
 html, body {
-    font-family:arial, sans-serif;
+    font-family: "freight-text-pro", serif;
     font-size:16px;
     line-height:1.2;
 }
 a, 
 a:link,
-a:hover {
+a:visited {
     color:$accent;
     text-decoration:none;
 }
 
 a:active,
-a:visited {
+a:hover {
     color:$fColor;
-    text-decoration:underline;
+    
 }
 
+h1 {
+    font-family: AAHA;
+  font-size: 2.2rem;
+  position: relative;
+  
+  white-space: nowrap;
+  color:$accent;
+  position:fixed;
+  transform:rotate(-90deg);
+  width:100vh;
+  top:100vh;
+  left:0;
+  transform-origin: 0 0 ;
+  padding:1rem;
+  text-align:center;
+  z-index:100;
+
+}
+
+h2 {
+    font-size: 2rem;
+  margin-top: .6em;
+
+  &.site-subtitle {
+    position:fixed;
+    
+    
+    width:100vh;
+    
+    padding:1rem;
+    text-align:center;
+    z-index:100;
+    margin-top:0;
+    transform-origin: 0 0 ;
+    transform:rotate(90deg);
+    top:0; left: 100%;
+    
+  }
+}
+
+
+
+// h2 {
+//     font-family: "AAHA", serif;
+//     font-size:2em;
+//     text-transform:uppercase;
+//     text-align:right;
+//     color:$accent;
+//    }
+
 h3 {
+    font-family: "AAHA", serif;
  font-size:1.5em;
  text-transform:uppercase;
  text-align:right;
+ color:$accent;
 }
 
 strong {
     font-weight:bold;
+}
+
+label {
+    color: $accent;
+  font-size: .75em;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+footer h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    padding:2em;
 }
