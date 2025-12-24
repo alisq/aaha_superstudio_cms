@@ -1,0 +1,29 @@
+@use 'vars.scss' as *;
+
+html, body {
+    font-family:arial, sans-serif;
+    font-size:16px;
+    line-height:1.2;
+}
+a, 
+a:link,
+a:hover {
+    color:$accent;
+    text-decoration:none;
+}
+
+a:active,
+a:visited {
+    color:$fColor;
+    text-decoration:underline;
+}
+
+h3 {
+ font-size:1.5em;
+ text-transform:uppercase;
+ text-align:right;
+}
+
+strong {
+    font-weight:bold;
+}

@@ -1,13 +1,46 @@
+@use 'vars.scss' as *;
+@use 'reset.scss';
+@use 'typography.scss';
+
+body {
+    background:$bgColor;
+    color:$fColor;
+}
+
 img {
     max-width:100%;
 
 }
 
-.submissionList {
+#filters {
     display:grid;
-    grid-template-columns:repeat(4, 1fr);
-}
-.submission {
+    grid-template-columns:1fr 1fr 1fr;
     padding:1em;
 }
 
+.submissionList {
+    display:grid;
+    
+    grid-template-columns:repeat(3, 1fr);
+}
+.submission {
+    padding:1em;
+
+}
+
+.submissionTeaser {
+    display:grid;
+    grid-column-gap: 1em;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    & img {
+        display:block;
+        filter:grayscale(1);
+        transition:filter 0.2s;
+    }
+
+    &:hover img {
+        filter:grayscale(0);
+        
+    }
+}
