@@ -13,7 +13,7 @@ const getApiUrl = () => {
   }
   
   // In development, use localhost
-  return 'http://localhost:3000';
+  return 'https://web-production-a5402.up.railway.app/';
 };
 
 export const API_URL = getApiUrl();

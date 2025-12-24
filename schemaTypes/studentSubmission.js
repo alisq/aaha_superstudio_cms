@@ -1,48 +1,48 @@
-import {defineField, defineType} from 'sanity'
-
-import { IoIosDocument as icon } from "react-icons/io";
+// /schemas/studentSubmission.js
+import {defineType, defineField} from 'sanity'
 
 export default defineType({
-  name: 'project',
-  title: 'Project',
+  name: 'studentSubmission',
+  title: 'Student Submission',
   type: 'document',
-  icon,
   fields: [
-     defineField({
+    defineField({
+      name: 'submittedBy',
+      title: 'Submitted By (email)',
+      type: 'string',
+      validation: Rule => Rule.required(),
+    }),
+    defineField({
       name: 'poster_image',
       title: 'Poster Image',
       type: 'image',
       validation: Rule => Rule.required(),
-          options: { hotspot: true },
-          fields: [
-            {
-              name: 'alt',
-              title: 'Alt text',
-              type: 'string',
-              options: {
-                isHighlighted: true, // show in main editing view
-              },
-            },
-          ],
-        }),
-
+      options: { hotspot: true },
+      fields: [
+        {
+          name: 'alt',
+          title: 'Alt text',
+          type: 'string',
+          options: {
+            isHighlighted: true,
+          },
+        },
+      ],
+    }),
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
       validation: Rule => Rule.required(),
-      
     }),
     defineField({
       name: 'allStudents',
       title: 'Students',
       type: 'tags',
-      validation: Rule => Rule.required(),
       options: {
-        includeFromRelated: 'allStudents'        
-      }
+        includeFromRelated: 'allStudents',
+      },
     }),
-    
     defineField({
       name: 'slug',
       title: 'Slug',
@@ -56,10 +56,8 @@ export default defineType({
       name: 'home_studio',
       title: 'Home Studio',
       type: 'reference',
-      validation: Rule => Rule.required(),
-      to: [{ type: 'studio' }], // assumes you have a "school" schema type defined
+      to: [{ type: 'studio' }],
     }),
-
     defineField({
       name: 'allTags',
       title: 'Tags',
@@ -81,45 +79,43 @@ export default defineType({
         ],
       },
     }),
-
-
     defineField({
-    name: 'description',
-    title: 'Description',
-    type: 'array',
-    validation: Rule => Rule.required(),
-    of: [
-      {
-        type: 'block',
-        styles: [
-          { title: 'Normal', value: 'normal' },
-          { title: 'Heading 2', value: 'h2' },
-          { title: 'Heading 3', value: 'h3' },
-          { title: 'Quote', value: 'blockquote' },
-        ],
-        lists: [
-          { title: 'Bullet', value: 'bullet' },
-          { title: 'Numbered', value: 'number' },
-        ],
-        marks: {
-          decorators: [
-            { title: 'Strong', value: 'strong' },
-            { title: 'Emphasis', value: 'em' },
-            { title: 'Underline', value: 'underline' },
+      name: 'description',
+      title: 'Description',
+      type: 'array',
+      validation: Rule => Rule.required(),
+      of: [
+        {
+          type: 'block',
+          styles: [
+            { title: 'Normal', value: 'normal' },
+            { title: 'Heading 2', value: 'h2' },
+            { title: 'Heading 3', value: 'h3' },
+            { title: 'Quote', value: 'blockquote' },
           ],
-          annotations: [
-            {
-              name: 'link',
-              type: 'object',
-              title: 'URL',
-              fields: [{ name: 'href', type: 'url', title: 'URL' }],
-            },
+          lists: [
+            { title: 'Bullet', value: 'bullet' },
+            { title: 'Numbered', value: 'number' },
           ],
+          marks: {
+            decorators: [
+              { title: 'Strong', value: 'strong' },
+              { title: 'Emphasis', value: 'em' },
+              { title: 'Underline', value: 'underline' },
+            ],
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: 'URL',
+                fields: [{ name: 'href', type: 'url', title: 'URL' }],
+              },
+            ],
+          },
         },
-      },
-    ],
-  }),
-  defineField({
+      ],
+    }),
+    defineField({
       name: 'media',
       title: 'Media',
       type: 'array',
@@ -135,7 +131,7 @@ export default defineType({
               title: 'Alt text',
               type: 'string',
               options: {
-                isHighlighted: true, // show in main editing view
+                isHighlighted: true,
               },
             },
             {
@@ -175,33 +171,5 @@ export default defineType({
         },
       ],
     }),
-
-    
-
-
   ],
-   
-  preview: {
-    select: {
-      title: 'title',
-      school: 'releaseDate',
-      media: 'poster',
-      castName0: 'castMembers.0.person.name',
-      castName1: 'castMembers.1.person.name',
-    },
-    prepare(selection) {
-      const year = selection.date && selection.date.split('-')[0]
-      const cast = [selection.castName0, selection.castName1].filter(Boolean).join(', ')
-
-      return {
-        title: `${selection.title} ${year ? `(${year})` : ''}`,
-        date: selection.date,
-        subtitle: cast,
-        media: selection.media,
-      }
-    },
-  },
 })
-
-
-
