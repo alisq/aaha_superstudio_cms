@@ -1,5 +1,5 @@
 import submissions from '../data/submissions.json';
-import Submission from './submission';
+import SubmissionTeaser from './submissionTeaser';
 
 function SubmissionList() {
   return (
@@ -8,7 +8,7 @@ function SubmissionList() {
       {submissions.map((item, index) => (
         
         <div key={index}>
-          <Submission {...item} />
+          <SubmissionTeaser {...item} />
         </div>
       ))}
     </div>
