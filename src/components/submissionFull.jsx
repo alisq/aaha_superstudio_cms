@@ -1,5 +1,6 @@
 import Flickity from 'react-flickity-component'
 import "../css/flickity.css";
+import parse from 'html-react-parser';
 
 const flickityOptions = {
     initialIndex: 2
@@ -25,7 +26,10 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
           <hr />
           <label>Demands:</label> {Demands}<br />
           <hr />
-          {Project_Description}<br />
+          {parse(Project_Description.replace(/\n/g, '<br />&nbsp;&nbsp;&nbsp;&nbsp;'))}<br />
+          <br /><br />
+
+          
         </div>
         <div>
           <div className="poster-image" style={{backgroundImage: `url(${poster_image})`}}>

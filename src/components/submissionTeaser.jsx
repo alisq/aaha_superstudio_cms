@@ -30,8 +30,8 @@ const studioClass = Home_Studio
 
 
 
-<strong>Student{(Student_Names.split(",").length > 1) && ("s")}:</strong> {Student_Names}<br /><br />
-<strong>Home Studio:</strong> {Home_Studio}<br />
+<label>Student{(Student_Names.split(",").length > 1) && ("s")}:</label> {Student_Names}<br /><br />
+<label>Home Studio:</label> {Home_Studio}<br />
  </div>
 
      
