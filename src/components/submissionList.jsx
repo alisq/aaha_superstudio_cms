@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom';
 import { slugify } from '../utils/slugify';
 import submissions from '../data/submissions.json';
 import SubmissionTeaser from './submissionTeaser';
 
-function SubmissionList({ activeFilter, onSubmissionClick }) {
+function SubmissionList({ activeFilter }) {
   const filteredSubmissions = activeFilter 
     ? submissions.filter(item => {
         // Check if submission has the active filter class
@@ -26,6 +27,7 @@ function SubmissionList({ activeFilter, onSubmissionClick }) {
       {filteredSubmissions.map((item, index) => {
         const submissionId = item.Project_Title + (item.Timestamp || index);
         const delay = index * 0.02; // Stagger each submission by 20ms
+        const submissionSlug = slugify(item.Project_Title);
         
         return (
           <div 
@@ -33,10 +35,15 @@ function SubmissionList({ activeFilter, onSubmissionClick }) {
             className="submission-wrapper rolling-down"
             style={{ animationDelay: `${delay}s` }}
           >
-            <SubmissionTeaser {...item} onClick={() => onSubmissionClick(item)} />
+            <Link to={`/submission/${submissionSlug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <SubmissionTeaser {...item} />
+            </Link>
           </div>
         );
       })}
+    
+    
+    
     </div>
   );
 }

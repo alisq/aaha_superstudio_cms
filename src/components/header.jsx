@@ -1,8 +1,16 @@
 function Header() {
     return (
         <header>
-            <h1><a href="/">END HOUSING ALIENATION NOW!</a></h1>
-            <h2 className="site-subtitle">a cross-Canada architecture superstudio</h2>
+            <div className="header-left">
+                <h1><a href="/">END HOUSING<br />ALIENATION<br />NOW!</a></h1></div>
+            <div className="header-right">
+            <h2 className="site-subtitle">
+                <div className="date-title">September 2025-<br />
+                May 2026</div>
+            a cross-Canada<br />architecture<br />superstudio</h2>
+            </div>
+            
+            
         </header>
     )
 }

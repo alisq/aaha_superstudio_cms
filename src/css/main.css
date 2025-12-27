@@ -58,7 +58,7 @@ table {
 }
 html, body {
   font-family: "freight-text-pro", serif;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.2;
 }
 
@@ -74,21 +74,22 @@ a:hover {
   color: #383131;
 }
 
+header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 h1 {
   font-family: AAHA;
   font-size: 2.2rem;
   position: relative;
   white-space: nowrap;
   color: #c48726;
-  position: fixed;
-  transform: rotate(-90deg);
-  width: 100vh;
-  top: 100vh;
-  left: 0;
+  text-align: right;
   transform-origin: 0 0;
   padding: 1rem;
-  text-align: center;
   z-index: 100;
+  line-height: 1;
 }
 
 h2 {
@@ -96,28 +97,28 @@ h2 {
   margin-top: 0.6em;
 }
 h2.site-subtitle {
-  position: fixed;
-  width: 100vh;
-  padding: 1rem;
-  text-align: center;
-  z-index: 100;
-  margin-top: 0;
-  transform-origin: 0 0;
-  transform: rotate(90deg);
-  top: 0;
-  left: 100%;
+  line-height: 1;
+}
+h2.site-subtitle .date-title {
+  color: #c48726;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow: visible;
 }
 
 h3 {
   font-family: "AAHA", serif;
   font-size: 1.5em;
-  text-transform: uppercase;
-  text-align: right;
   color: #c48726;
 }
 
 strong {
   font-weight: bold;
+}
+
+em {
+  font-style: italic;
 }
 
 label {
@@ -132,6 +133,18 @@ footer h2 {
   font-size: 1.5rem;
   text-align: center;
   padding: 2em;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.2em 0.6em 0.4em;
+  background: #c48726;
+  margin: 0.2em 0.4em 0.2em 0;
+  border-radius: 0.5em;
+  color: #FFFFFF;
+}
+.tag:hover, .tag:active {
+  background: #383131;
 }
 
 body {
@@ -271,8 +284,8 @@ img {
   }
 }
 .submissionList {
-  padding: 1em 5rem;
   column-count: 4;
+  column-gap: 0.25rem;
 }
 
 .submission-wrapper {
@@ -299,10 +312,10 @@ img {
   display: block;
   filter: grayscale(1);
   transition: filter 0.2s;
+  margin-bottom: 0.5rem;
 }
 .submissionTeaser:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
 }
 .submissionTeaser:hover img {
   filter: grayscale(0);

@@ -158,8 +158,9 @@ img {
 
 
 .submissionList {
-    padding:1em 5rem;
-    column-count:4
+    // padding:1rem;
+    column-count:4;
+    column-gap:0.25rem;
 }
 
 .submission-wrapper {
@@ -191,11 +192,12 @@ img {
         display:block;
         filter:grayscale(1);
         transition:filter 0.2s;
+        margin-bottom:0.5rem;
     }
 
     &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-4px);
+        // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         
         img {
             filter:grayscale(0);
@@ -260,7 +262,7 @@ hr {
 
 @media (max-width: 768px) {
     .submissionList {
-        column-count:1
+        column-count:1;
     }
     #filters,
     .submission-grid {
