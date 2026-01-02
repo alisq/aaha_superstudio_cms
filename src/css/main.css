@@ -321,9 +321,6 @@ img {
   filter: grayscale(0);
 }
 
-.submission-full-container {
-  padding: 2em 5em;
-}
 .submission-full-container .poster-image img {
   max-height: 100vh;
 }
