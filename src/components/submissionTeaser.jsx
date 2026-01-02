@@ -18,7 +18,9 @@ const studioClass = Home_Studio
   : '';
 
 
-  const posterImage = poster_image.replace("/files/","/files/thumbs/");
+  const posterImage = (poster_image || "").replace("/files/","/files/thumbs/");
+  const fullPosterImagePath = posterImage.startsWith('/') ? `${process.env.PUBLIC_URL}${posterImage}` : posterImage;
+  console.log(fullPosterImagePath)
   
   return (
     
@@ -27,7 +29,7 @@ const studioClass = Home_Studio
       style={{ cursor: 'pointer' }}
     >
       
-          <img src={posterImage} />
+          <img src={fullPosterImagePath} alt={Project_Title} />
         
         <div>
         <h3>{Project_Title}</h3>
