@@ -1,17 +1,33 @@
+import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { slugify } from '../utils/slugify';
 import submissions from '../data/submissions.json';
 import SubmissionTeaser from './submissionTeaser';
 
+function shuffle(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 function SubmissionList({ activeFilter }) {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    setItems(shuffle(submissions));
+  }, []);
+
   const filteredSubmissions = activeFilter 
-    ? submissions.filter(item => {
+    ? items.filter(item => {
         // Check if submission has the active filter class
         const tagClasses = item.Tags
           ? item.Tags.split(',').map(s => "t_" + slugify(s.trim()))
           : [];
         const demandClasses = item.Demands
-          ? item.Demands.split(',').map(s => "d_" + slugify(s.trim()))
+          ? item.Demands.split("—, ").map(s => "d_" + slugify(s.trim()))
           : [];
         const studioClass = item.Home_Studio
           ? ["s_" + slugify(item.Home_Studio.split(" — ")[0])]
@@ -20,7 +36,7 @@ function SubmissionList({ activeFilter }) {
         const allClasses = [...tagClasses, ...demandClasses, ...studioClass];
         return allClasses.includes(activeFilter);
       })
-    : submissions;
+    : items;
 
   return (
     <div className="submissionList">

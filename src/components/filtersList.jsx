@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { slugify } from "../utils/slugify";
+import submissions from '../data/submissions.json';
 
-const studios = ["Community-Centric Housing for Rural and Regional Canada — Athabasca University",
+const allStudios = ["Community-Centric Housing for Rural and Regional Canada — Athabasca University",
 "Graduating Project — British Columbia Institute of Technology",
 "Housing, Community, City Building & Placemaking — Carleton University",
 "Urban Housing Studio — Dalhousie University",
@@ -18,7 +19,7 @@ const studios = ["Community-Centric Housing for Rural and Regional Canada — At
 "Infilling affordable housing within the Kensington Market Community Land Trust — University of Waterloo",
 "Build Now to End Housing Alienation in Waterloo Region — University of Waterloo"];
 
-const demands = ["Tax Gentrification to build Community Land Trusts", 
+const allDemands = ["Tax Gentrification to build Community Land Trusts", 
     "Challenge existing zoning constraints to provide alternative housing types, density, intensification and modes of tenure", 
     "Collective Ownership", 
     "Intentional Communities for Unhoused People", 
@@ -26,12 +27,11 @@ const demands = ["Tax Gentrification to build Community Land Trusts",
     "Reparative Architecture", 
     "Demand housing that evolve with people, adapt to climate, and foster collective life", 
     "Mutual Aid Housing", 
-    "Redistribute Power in the Housing Process and  Legitimize and Support Incremental", 
-    "Self-Directed Building", 
+    "Redistribute Power in the Housing Process and  Legitimize and Support Incremental Self-Directed Building", 
     "Landback", 
     "Surplus Properties for Housing"];
 
-    const tags = ["Community land trusts",
+    const allTags = ["Community land trusts",
 "Cooperative housing",
 "Decolonization",
 "Financialization",
@@ -61,6 +61,61 @@ const demands = ["Tax Gentrification to build Community Land Trusts",
 function FiltersList({ activeFilter, setActiveFilter }) {
     const [openDropdown, setOpenDropdown] = useState(null);
     const filtersRef = useRef(null);
+
+    // Extract unique values from submissions
+    const { studios, demands, tags } = useMemo(() => {
+        const studioSet = new Set();
+        const demandSet = new Set();
+        const tagSet = new Set();
+
+        submissions.forEach(submission => {
+            // Extract studios
+            if (submission.Home_Studio) {
+                const studioName = submission.Home_Studio.split(" — ")[0];
+                studioSet.add(studioName);
+            }
+
+            // Extract demands
+            if (submission.Demands) {
+                submission.Demands.split("—, ").forEach(demand => {
+                    const trimmed = demand.replace("—", "").trim();
+                    if (trimmed) {
+                        demandSet.add(trimmed);
+                    }
+                });
+            }
+
+            // Extract tags
+            if (submission.Tags) {
+                submission.Tags.split(",").forEach(tag => {
+                    const trimmed = tag.trim();
+                    if (trimmed) {
+                        tagSet.add(trimmed);
+                    }
+                });
+            }
+        });
+
+        // Filter the static lists to only include items that exist in submissions
+        const filteredStudios = allStudios.filter(studio => {
+            const studioName = studio.split(" — ")[0];
+            return studioSet.has(studioName);
+        });
+
+        const filteredDemands = allDemands.filter(demand => {
+            return demandSet.has(demand);
+        });
+
+        const filteredTags = allTags.filter(tag => {
+            return tagSet.has(tag);
+        });
+
+        return {
+            studios: filteredStudios,
+            demands: filteredDemands,
+            tags: filteredTags
+        };
+    }, []);
 
     // Close dropdown when clicking outside
     useEffect(() => {

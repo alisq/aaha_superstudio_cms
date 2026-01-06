@@ -8,8 +8,10 @@ const tagClasses = Tags
   .map(s => "t_"+slugify(s.trim()))
   .join(' ');
 
+
+  
 const demandClasses = Demands
-  .split(',')
+  .split("—, ")
   .map(s => "d_"+slugify(s.trim()))
   .join(' ');
 
@@ -20,7 +22,7 @@ const studioClass = Home_Studio
 
   const posterImage = (poster_image || "").replace("/files/","/files/thumbs/");
   const fullPosterImagePath = posterImage.startsWith('/') ? `${process.env.PUBLIC_URL}${posterImage}` : posterImage;
-  console.log(fullPosterImagePath)
+  
   
   return (
     

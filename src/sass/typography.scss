@@ -109,11 +109,18 @@ footer h2 {
   padding:0.2em 0.6em 0.4em;
   background:$accent;
   margin:0.2em 0.4em 0.2em 0;
-  border-radius: 0.5em;
+  border-radius: 0.25em;
   color:$bgColor;
+  font-size: 0.8em;
+
 
   &:hover,
   &:active {
     background:$fColor;
   }
+}
+
+  
+a:link.tag {
+  color: red;
 }

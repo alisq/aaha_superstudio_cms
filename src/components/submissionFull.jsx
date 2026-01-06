@@ -1,30 +1,26 @@
-import { useNavigate, Link } from 'react-router-dom';
-import Flickity from 'react-flickity-component'
-import "../css/flickity.css";
+import { Link } from 'react-router-dom';
+
 import parse from 'html-react-parser';
 import { slugify } from '../utils/slugify';
-
-const flickityOptions = {
-    initialIndex: 2
-}
 
 
 
 function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio, Tags, Project_Description, Image_1_Alt, Image_1_Caption, Image_2_Alt, Image_2_Caption, Image_3_Alt, Image_3_Caption, Image_4_Alt, Image_4_Caption, Image_5_Alt, Image_5_Caption, Image_6_Alt, Image_6_Caption, Image_7_Alt, Image_7_Caption, Image_8_Alt, Image_8_Caption, Image_9_Alt, Image_9_Caption, Image_10_Alt, Image_10_Caption, URL, Video_URL, Video_Caption, Demands, poster_image, img_01, img_02, img_03, img_04, img_05, img_06, img_07, img_08, img_09, img_10}) {
-  const navigate = useNavigate();
   
   return (
     <div className="submission">
     
       <div className="submission-grid">    
-        <div>
+        <div className="left-bar">
+          <div className="left-bar-content">
+          
           <h2>{Project_Title}</h2>
           <hr />
           <label>Student{(Student_Names.split(",").length > 1) && ("s")}:</label> {Student_Names}
           <hr />
           <label>Home Studio:</label> {Home_Studio && Home_Studio.split(" — ").length > 0 && (
             <Link 
-              to={`/studio/${slugify(Home_Studio.split(" — ")[0])}`}
+              to={`/?filter=s_${slugify(Home_Studio.split(" — ")[0])}`}
               style={{ textDecoration: 'underline', color: 'inherit' }}
             >
               {Home_Studio.split(" — ")[0]}
@@ -40,43 +36,50 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
             </Link>
           )}
           <hr />
-          <label>Tags:</label><br /> {Tags.split(", ").map((tag, index) => (
-  <div key={index} className="tag">
-    {tag}
-  </div>
-))}
+          <label>Tags:</label><br /> {Tags.split(",").map((tag, index) => {
+            const trimmedTag = tag.trim();
+            const filterClass = `t_${slugify(trimmedTag)}`;
+            return (
+              <Link 
+                key={index} 
+                to={`/?filter=${filterClass}`}
+                className="tag"
+                style={{ textDecoration: 'none', color: 'inherit', display: 'inline-block' }}
+              >
+                {trimmedTag}
+              </Link>
+            );
+          })}
           <hr />
-          <label>Demands:</label> {Demands.split(", ").map((demand, index) => (
-            <li key={index} className="demand_tag">
-              <strong><em>{demand}</em></strong>
-            </li>
-          ))}
+          <label>Demands:</label> 
+          <ul>
+            {Demands.split("—, ").map((demand, index) => {
+              const trimmedDemand = demand.replace("—", "").trim();
+              const filterClass = `d_${slugify(trimmedDemand)}`;
+              return (
+                <li key={index} className="demand_tag">
+                  <Link
+                  className="tag"
+                    to={`/?filter=${filterClass}`}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <strong><em>{trimmedDemand}</em></strong>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
           <hr />
           {parse(Project_Description.replace(/\n/g, '<br />&nbsp;&nbsp;&nbsp;&nbsp;'))}<br />
           <br /><br />
-
-          
+ 
+          </div>
         </div>
         <div>
           <div className="poster-image" style={{backgroundImage: `url(${poster_image?.startsWith('/') ? process.env.PUBLIC_URL + poster_image : poster_image})`}}>
-            <img src={poster_image?.startsWith('/') ? process.env.PUBLIC_URL + poster_image : poster_image} alt={Project_Title} />
+            <img src={poster_image?.startsWith('/') ? process.env.PUBLIC_URL + poster_image : poster_image} alt={Project_Title} />          
           </div>
-        </div>
-      </div>
-<br />
-      <hr />
-      <br />  
-
-<Flickity
-      className={'carousel'}                
-      elementType={'div'}                   
-      options={flickityOptions}
-      disableImagesLoaded
-      reloadOnUpdate
-      static
-    >
-      
-    
+              
 
   <div className="slide image01">
       <img src={img_01?.startsWith('/') ? process.env.PUBLIC_URL + img_01 : img_01} alt={Image_1_Alt} />
@@ -154,7 +157,16 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
   {Video_Caption}
   </div>
   )}
-     </Flickity>
+        </div>
+        
+      </div>
+
+      <hr />
+      <br />  
+
+      
+
+     
     </div>
   );
 }

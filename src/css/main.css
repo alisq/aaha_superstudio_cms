@@ -140,11 +140,16 @@ footer h2 {
   padding: 0.2em 0.6em 0.4em;
   background: #c48726;
   margin: 0.2em 0.4em 0.2em 0;
-  border-radius: 0.5em;
+  border-radius: 0.25em;
   color: #FFFFFF;
+  font-size: 0.8em;
 }
 .tag:hover, .tag:active {
   background: #383131;
+}
+
+a:link.tag {
+  color: red;
 }
 
 body {
@@ -307,6 +312,9 @@ img {
 
 .submissionTeaser {
   transition: transform 0.2s, box-shadow 0.2s;
+  break-inside: avoid;
+  page-break-inside: avoid; /* legacy / print */
+  -webkit-column-break-inside: avoid;
 }
 .submissionTeaser img {
   display: block;
@@ -321,6 +329,11 @@ img {
   filter: grayscale(0);
 }
 
+.submission-full-container .left-bar {
+  position: sticky;
+  bottom: 1rem;
+  overflow-y: auto;
+}
 .submission-full-container .poster-image img {
   max-height: 100vh;
 }
@@ -341,6 +354,7 @@ img {
   display: grid;
   grid-template-columns: 1fr 3fr;
   grid-column-gap: 2em;
+  align-items: start;
 }
 
 .slide {
