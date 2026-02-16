@@ -44,7 +44,7 @@ function SubmissionList({ activeFilter }) {
         const submissionId = item.Project_Title + (item.Timestamp || index);
         const delay = index * 0.02; // Stagger each submission by 20ms
         const submissionSlug = slugify(item.Project_Title);
-        
+        console.log(submissionSlug)
         return (
           <div 
             key={submissionId}
