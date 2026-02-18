@@ -1,62 +1,10 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { slugify } from "../utils/slugify";
+import parse from "html-react-parser";
 import submissions from '../data/submissions.json';
+import studiosData from '../data/studios.json';
 
-const allStudios = ["Community-Centric Housing for Rural and Regional Canada — Athabasca University",
-"Graduating Project — British Columbia Institute of Technology",
-"Housing, Community, City Building & Placemaking — Carleton University",
-"Urban Housing Studio — Dalhousie University",
-"Storied Lands — Laurentian University",
-"Gorilla Park Housing – an exercise in constructive activism — McGill University",
-"Living Cooperatively — Toronto Metropolitan University",
-"The Architecture of Urban Housing — Toronto Metropolitan University",
-"Counter Proposal Studio — Toronto Metropolitan University",
-"Penser et construire l’architecture pour habiter la ville — Université de Montréal",
-"Home Otherwise: Architecture, Agency, and Collective Housing Futures — University of British Columbia",
-"The Porous Dwelling: Reimagining Housing as the Intersection of Architecture, Ecology, and Culture — University of Calgary",
-"Manufacturing Otherwise — University of Manitoba",
-"Architecture and the Right to Housing — University of Toronto",
-"Infilling affordable housing within the Kensington Market Community Land Trust — University of Waterloo",
-"Build Now to End Housing Alienation in Waterloo Region — University of Waterloo"];
-
-const allDemands = ["Tax Gentrification to build Community Land Trusts", 
-    "Challenge existing zoning constraints to provide alternative housing types, density, intensification and modes of tenure", 
-    "Collective Ownership", 
-    "Intentional Communities for Unhoused People", 
-    "All Urban Housing Development Must Include Accessible Public Space", 
-    "Reparative Architecture", 
-    "Demand housing that evolve with people, adapt to climate, and foster collective life", 
-    "Mutual Aid Housing", 
-    "Redistribute Power in the Housing Process and  Legitimize and Support Incremental Self-Directed Building", 
-    "Landback", 
-    "Surplus Properties for Housing"];
-
-    const allTags = ["Community land trusts",
-"Cooperative housing",
-"Decolonization",
-"Financialization",
-"Housing policy",
-"Housing theory",
-"Indigeneity",
-"Pedagogy",
-"Prefabrication",
-"Housing Production",
-"Participatory Design",
-"Shared Spaces",
-"Programmed Circulation",
-"Flexible Spaces",
-"Co-Housing",
-"Co-Living",
-"Courtyard Housing",
-"Towers",
-"Bar Buildings",
-"Row Housing",
-"Infill Housing",
-"Laneway Housing",
-"Multi-Plex Housing",
-"Mixed Use",
-"Land Back",
-"Agriculture and Gardening"]
+const allStudios = studiosData.map(studio => `${(studio.title || '').trim()} — ${(studio.school || '').trim()}`);
 
 function FiltersList({ activeFilter, setActiveFilter }) {
     const [openDropdown, setOpenDropdown] = useState(null);
@@ -96,24 +44,20 @@ function FiltersList({ activeFilter, setActiveFilter }) {
             }
         });
 
-        // Filter the static lists to only include items that exist in submissions
+        // Studios: filter studios.json list to only those with submissions
         const filteredStudios = allStudios.filter(studio => {
             const studioName = studio.split(" — ")[0];
             return studioSet.has(studioName);
         });
 
-        const filteredDemands = allDemands.filter(demand => {
-            return demandSet.has(demand);
-        });
-
-        const filteredTags = allTags.filter(tag => {
-            return tagSet.has(tag);
-        });
+        // Demands and tags: master lists are built from cited values in submissions
+        const demands = Array.from(demandSet).sort();
+        const tags = Array.from(tagSet).sort();
 
         return {
             studios: filteredStudios,
-            demands: filteredDemands,
-            tags: filteredTags
+            demands,
+            tags
         };
     }, []);
 
@@ -174,6 +118,12 @@ function FiltersList({ activeFilter, setActiveFilter }) {
         }
         return "All Tags";
     };
+
+    // Selected studio record for description (when a studio filter is active)
+    const selectedStudio = useMemo(() => {
+        if (!activeFilter || !activeFilter.startsWith('s_')) return null;
+        return studiosData.find(studio => `s_${slugify((studio.title || '').trim())}` === activeFilter) || null;
+    }, [activeFilter]);
 
     const FilterDropdown = ({ id, label, displayValue, options, categoryPrefix, getFilterClass }) => {
         const isOpen = openDropdown === id;
@@ -250,6 +200,17 @@ function FiltersList({ activeFilter, setActiveFilter }) {
                 categoryPrefix="t_"
                 getFilterClass={(item) => `t_${slugify(item)}`}
             />
+
+            {selectedStudio && selectedStudio.desc && (
+                 
+                <div className="filter-studio">
+                      <div className="filter-studio-school"><label>School:</label> {selectedStudio.school}</div>
+                      <div className="filter-studio-teacher"><label>Instructor:</label> {selectedStudio.teacher}</div>
+                      <div className="filter-studio-term"><label>Term:</label> {selectedStudio.term}</div>
+                      <div className="filter-studio-level"><label>Level:</label> {selectedStudio.level}</div>
+                      <div className="filter-studio-description"><label>Description:</label> {parse(selectedStudio.desc)}</div>
+                </div>
+            )}
         </section>
     )
 }

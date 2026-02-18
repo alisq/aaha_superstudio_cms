@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/aaha_superstudio_cms/static/css/main.8c6698f1.css",
-    "main.js": "/aaha_superstudio_cms/static/js/main.839d86bc.js",
+    "main.css": "/aaha_superstudio_cms/static/css/main.65fd4205.css",
+    "main.js": "/aaha_superstudio_cms/static/js/main.a5cdffd1.js",
     "static/js/453.ba2af4ec.chunk.js": "/aaha_superstudio_cms/static/js/453.ba2af4ec.chunk.js",
     "static/media/AAHA-Regular.woff2": "/aaha_superstudio_cms/static/media/AAHA-Regular.b71083b1fe058f5505f0.woff2",
     "index.html": "/aaha_superstudio_cms/index.html",
-    "main.8c6698f1.css.map": "/aaha_superstudio_cms/static/css/main.8c6698f1.css.map",
-    "main.839d86bc.js.map": "/aaha_superstudio_cms/static/js/main.839d86bc.js.map",
+    "main.65fd4205.css.map": "/aaha_superstudio_cms/static/css/main.65fd4205.css.map",
+    "main.a5cdffd1.js.map": "/aaha_superstudio_cms/static/js/main.a5cdffd1.js.map",
     "453.ba2af4ec.chunk.js.map": "/aaha_superstudio_cms/static/js/453.ba2af4ec.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8c6698f1.css",
-    "static/js/main.839d86bc.js"
+    "static/css/main.65fd4205.css",
+    "static/js/main.a5cdffd1.js"
   ]
 }

@@ -28,12 +28,12 @@ function HomePage() {
   }, [location.search]);
 
   return (
-    <>
+    <div className="home-layout">
       <section className="filters-section">
         <FiltersList activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
       </section>
       <SubmissionList activeFilter={activeFilter} />
-    </>
+    </div>
   );
 }
 
