@@ -7,7 +7,7 @@
 
 html, body {
     font-family: "freight-text-pro", serif;
-    font-size:18px;
+    font-size:17px;
     line-height:1.2;
 }
 a, 
@@ -75,11 +75,35 @@ h2 {
 //    }
 
 h3 {
+  color:$accent;
+  text-align:center;
+  font-weight:bold;
+  margin-bottom:1rem;
+  
+  &.submission-teaser-title {
     font-family: "AAHA", serif;
- font-size:1.5em;
-//  text-transform:uppercase;
-//  text-align:right;
- color:$accent;
+    font-weight:normal;
+    font-size:1.5em;
+    text-align:left;
+    color:$accent;
+    margin-bottom:0;
+ 
+  }
+    
+}
+
+h4 {
+  font-weight:bold;
+}
+
+h5 {
+  padding-top:0.5em;
+  color: $accent;
+  font-size: .75em;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+
 }
 
 strong {
@@ -88,6 +112,10 @@ strong {
 
 em {
   font-style:italic;
+}
+
+p {
+  margin-bottom:1rem;
 }
 
 label {
@@ -104,23 +132,37 @@ footer h2 {
     padding:2em;
 }
 
-.tag {
-  display: inline-block;
-  padding:0.2em 0.6em 0.4em;
-  background:$accent;
-  margin:0.2em 0.4em 0.2em 0;
-  border-radius: 0.25em;
-  color:$bgColor;
-  font-size: 0.8em;
+ul li {
+  list-style-type: circle;
+  margin-bottom:0.5em;
 
+  & a:link,
+  & a:visited {
+    color:$fColor;
+  }
 
-  &:hover,
-  &:active {
-    background:$fColor;
+  & a:hover {
+    color:$accent;
   }
 }
 
-  
-a:link.tag {
-  color: red;
+.tag,
+.demand-tag {
+  display: inline-block;
+  padding: 0.2em 0.6em 0.4em;
+  background: $accent;
+  margin: 0.2em 0.4em 0.2em 0;
+  border-radius: 0.25em;
+  color: $bgColor;
+  font-size: 0.8em;
+
+  &:hover,
+  &:active {
+    background: $fColor;
+  }
+}
+
+a.tag,
+a.demand-tag {
+  color: $bgColor;
 }

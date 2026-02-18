@@ -5,14 +5,12 @@ function Studio({title, desc, school, teacher, demands, isOpen, term, level, onC
     
     
     return (
-        <li className={`studio ${isOpen ? "open" : ""}`}>
-            
-
-                              <div className='studio_header' onClick={onClick}>
-                            <h4><span className='triangle'>&#9656;</span> {title}</h4>
-                            <h5>{school}</h5>
-                        </div>
-                        <div className='studio_body'>
+        <li className={`studio ${isOpen ? "studio--open" : ""}`}>
+            <div className="studio-header" onClick={onClick}>
+              <h4><span className="studio-triangle">&#9656;</span> {title}</h4>
+              <h5>{school}</h5>
+            </div>
+            <div className="studio-body">
 
                             {Array.isArray(demands) && demands.length > 0 && (
                             <h6>

@@ -3,6 +3,7 @@ import { slugify } from "../utils/slugify";
 import parse from "html-react-parser";
 import submissions from '../data/submissions.json';
 import studiosData from '../data/studios.json';
+import MenuModal from "./menuModal";
 
 const allStudios = studiosData.map(studio => `${(studio.title || '').trim()} — ${(studio.school || '').trim()}`);
 
@@ -100,7 +101,7 @@ function FiltersList({ activeFilter, setActiveFilter }) {
             const studio = studios.find(item => `s_${slugify(item.split(" — ")[0])}` === activeFilter);
             return studio || "All Studios";
         }
-        return "All Studios";
+        return (          <label className="filter-tags-label">All Studios</label>);
     };
 
     const getDemandDisplay = () => {
@@ -108,15 +109,7 @@ function FiltersList({ activeFilter, setActiveFilter }) {
             const demand = demands.find(item => `d_${slugify(item)}` === activeFilter);
             return demand || "All Demands";
         }
-        return "All Demands";
-    };
-
-    const getTagDisplay = () => {
-        if (activeFilter && activeFilter.startsWith('t_')) {
-            const tag = tags.find(item => `t_${slugify(item)}` === activeFilter);
-            return tag || "All Tags";
-        }
-        return "All Tags";
+        return (          <label className="filter-tags-label">All Demands</label>);
     };
 
     // Selected studio record for description (when a studio filter is active)
@@ -125,7 +118,7 @@ function FiltersList({ activeFilter, setActiveFilter }) {
         return studiosData.find(studio => `s_${slugify((studio.title || '').trim())}` === activeFilter) || null;
     }, [activeFilter]);
 
-    const FilterDropdown = ({ id, label, displayValue, options, categoryPrefix, getFilterClass }) => {
+    const FilterDropdown = ({ id, label, displayValue, options, categoryPrefix, getFilterClass, extraContent }) => {
         const isOpen = openDropdown === id;
         
         return (
@@ -168,12 +161,17 @@ function FiltersList({ activeFilter, setActiveFilter }) {
                         })}
                     </div>
                 </div>
+                {extraContent}
             </div>
         );
     };
 
     return(
-        <section id="filters" ref={filtersRef}>
+        <section id="filters" className="filters" ref={filtersRef}>
+     <a href="#about">
+  <h5>About the Superstudio</h5>
+</a>
+
             <FilterDropdown
                 id="studio-filter"
                 label="Studio"
@@ -181,6 +179,15 @@ function FiltersList({ activeFilter, setActiveFilter }) {
                 options={studios}
                 categoryPrefix="s_"
                 getFilterClass={(item) => `s_${slugify(item.split(" — ")[0])}`}
+                extraContent={selectedStudio && selectedStudio.desc ? (
+                    <div className="filter-studio">
+                        <div className="filter-studio-school"><label>School:</label> {selectedStudio.school}</div>
+                        <div className="filter-studio-teacher"><label>Instructor:</label> {selectedStudio.teacher}</div>
+                        <div className="filter-studio-term"><label>Term:</label> {selectedStudio.term}</div>
+                        <div className="filter-studio-level"><label>Level:</label> {selectedStudio.level}</div>
+                        <div className="filter-studio-description"><label>Description:</label> {parse(selectedStudio.desc)}</div>
+                    </div>
+                ) : null}
             />
             
             <FilterDropdown
@@ -192,25 +199,36 @@ function FiltersList({ activeFilter, setActiveFilter }) {
                 getFilterClass={(item) => `d_${slugify(item)}`}
             />
             
-            <FilterDropdown
-                id="tag-filter"
-                label="Tag"
-                displayValue={getTagDisplay()}
-                options={tags}
-                categoryPrefix="t_"
-                getFilterClass={(item) => `t_${slugify(item)}`}
-            />
-
-            {selectedStudio && selectedStudio.desc && (
-                 
-                <div className="filter-studio">
-                      <div className="filter-studio-school"><label>School:</label> {selectedStudio.school}</div>
-                      <div className="filter-studio-teacher"><label>Instructor:</label> {selectedStudio.teacher}</div>
-                      <div className="filter-studio-term"><label>Term:</label> {selectedStudio.term}</div>
-                      <div className="filter-studio-level"><label>Level:</label> {selectedStudio.level}</div>
-                      <div className="filter-studio-description"><label>Description:</label> {parse(selectedStudio.desc)}</div>
+            <div className="filter-tags">
+                <label className="filter-tags-label">Tags</label>
+                <div className="filter-tag-buttons">
+                    <button
+                        type="button"
+                        className={`filter-tag-button ${!(activeFilter && activeFilter.startsWith('t_')) ? 'filter-tag-button--active' : ''}`}
+                        onClick={() => {
+                            if (activeFilter && activeFilter.startsWith('t_')) {
+                                setActiveFilter(null);
+                            }
+                        }}
+                    >
+                        All
+                    </button>
+                    {tags.map((tag, index) => {
+                        const filterClass = `t_${slugify(tag)}`;
+                        const isActive = activeFilter === filterClass;
+                        return (
+                            <button
+                                key={index}
+                                type="button"
+                                className={`filter-tag-button ${isActive ? 'filter-tag-button--active' : ''}`}
+                                onClick={() => setActiveFilter(filterClass)}
+                            >
+                                {tag}
+                            </button>
+                        );
+                    })}
                 </div>
-            )}
+            </div>
         </section>
     )
 }

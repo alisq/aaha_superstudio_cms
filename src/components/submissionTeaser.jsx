@@ -27,24 +27,20 @@ const studioClass = Home_Studio
   return (
     
     <div 
-      className={`submission submissionTeaser ${tagClasses} ${demandClasses} ${studioClass}`}
+      className={`submission submission-teaser ${tagClasses} ${demandClasses} ${studioClass}`}
       style={{ cursor: 'pointer' }}
     >
       
           <img src={fullPosterImagePath} alt={Project_Title} />
         
         <div>
-        <h3>{Project_Title}</h3>
+        <h3 className="submission-teaser-title">{Project_Title}</h3>
 
-<p>
-  <label>Student{(Student_Names.split(",").length > 1) && ("s")}:</label> {Student_Names}
-</p>
-<p>
-  <label>Home Studio:</label>{Home_Studio.split(" — ")[0]}
-  </p>
-<p>
-<label>School:</label> {Home_Studio.split(" — ")[1]}
-</p>
+  <label>Student{(Student_Names.split(",").length > 1) && ("s")}:</label> {Student_Names}<br />
+
+  <label>Home Studio:</label>{Home_Studio.split(" — ")[0]}<br />
+<label>School:</label> {Home_Studio.split(" — ")[1]}<br />
+
  </div>
 
      

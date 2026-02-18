@@ -3,13 +3,13 @@ import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router
 import FiltersList from './components/filtersList';
 import SubmissionList from './components/submissionList';
 import SubmissionFull from './components/submissionFull';
-import StudioList from './components/studioList';
-import Studio from './components/studio';
+// import StudioList from './components/studioList';
+// import Studio from './components/studio';
 import Header from './components/header';
 import Footer from './components/footer';
 import StudioPage from './components/studioPage';
+import AboutPage from './components/about/AboutPage';
 import submissions from './data/submissions.json';
-import studios from './data/studios.json';
 import { slugify } from './utils/slugify';
 import './css/main.css'; 
 
@@ -29,6 +29,7 @@ function HomePage() {
 
   return (
     <div className="home-layout">
+      
       <section className="filters-section">
         <FiltersList activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
       </section>
@@ -72,6 +73,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/submission/:slug" element={<SubmissionPage />} />
         <Route path="/studio/:slug" element={<StudioPage />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
 
       
