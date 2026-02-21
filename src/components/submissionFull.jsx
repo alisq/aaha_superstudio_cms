@@ -56,23 +56,26 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
           </div>
           <br />
           <label>Demands:</label> 
-          <ul>
+          
             {Demands.split("—, ").map((demand, index) => {
               const trimmedDemand = demand.replace("—", "").trim();
               const filterClass = `d_${slugify(trimmedDemand)}`;
               return (
-                <li key={index}>
+                <div key={index}>
                   <Link
+                   
+                    className="home-demand"
                   
                     to={`/?filter=${filterClass}`}
                     style={{ textDecoration: 'none', color: 'inherit' }}
                   >
                     <strong><em>{trimmedDemand}</em></strong>
                   </Link>
-                </li>
+                  </div>
+                
               );
             })}
-          </ul>
+          
           <br />
           {parse(Project_Description.replace(/\n/g, '<br />&nbsp;&nbsp;&nbsp;&nbsp;'))}<br />
           <br /><br />

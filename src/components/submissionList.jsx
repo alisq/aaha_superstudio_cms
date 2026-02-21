@@ -27,7 +27,7 @@ function SubmissionList({ activeFilter }) {
           ? item.Tags.split(',').map(s => "t_" + slugify(s.trim()))
           : [];
         const demandClasses = item.Demands
-          ? item.Demands.split("—, ").map(s => "d_" + slugify(s.trim()))
+          ? item.Demands.split("—, ").map(s => "d_" + slugify(s.replace("—", "").trim()))
           : [];
         const studioClass = item.Home_Studio
           ? ["s_" + slugify(item.Home_Studio.split(" — ")[0])]

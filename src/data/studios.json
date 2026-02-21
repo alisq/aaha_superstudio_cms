@@ -101,7 +101,7 @@
     "title": "Counter Proposal Studio",
     "desc": "<p>This graduate design studio will look at significant historical and recently planned developments within the city of Toronto through a critical lens asking, what if things had been done differently? Through speculative proposals students will engage with and question the developments at different scales, with the goals of creating more equitable, livable, culturally vibrant and ecologically conscious designs. Considering housing and cultural spaces as a vital component of city-building, the counter proposals will address issues of culture, density, affordability, and heritage. Students will collaborate with community organizations and stakeholders relevant to their chosen concerns and site locations to envision a more enriching city.</p>",
     "school": "Toronto Metropolitan University",
-    "demands": 0,
+    "demands": [],
     "teacher": "Tura Cousins Wilson, Julia Jamrozik",
     "term":"Winter",
     "level":"Graduate"
@@ -110,7 +110,8 @@
     "title": "Penser et construire l’architecture pour habiter la ville",
     "desc": "<p>Considering architecture and the city as cultural and social projects, <em>Thinking and building architecture to inhabit the city</em>, focuses on the transformation of the city through architecture. By definition, cities are meant to be lived in, but the conditions of their habitability are changing. There are more and more of us, and housing often has the status of a commodity. Because the role of the architectural project is precisely to envisage different scenarios of life through the built environment, it has the capacity to influence, upstream, the future of our cities and their neighborhoods, and to contribute fundamentally to the overall quality of urban life. <em>Thinking and building architecture to inhabit the city</em> looks at architecture from this perspective, with a particular focus on Montreal’s Quartier Namur-Hippodrome.</p>",
     "school": "Université de Montréal",
-    "demands": "Build to inhabit the city",
+    "demands": [
+      "Build to inhabit the city"],
     "teacher": "Anne Cormier, Frédéric Dubé, Joanne Godin",
     "term":"Winter",
     "level":"Graduate"

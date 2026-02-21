@@ -505,12 +505,14 @@ hr {
   margin-bottom: 0.5em;
 }
 
-.home-studio {
+.home-studio,
+.home-demand {
   border: 1px solid #c48726;
   display: block;
   padding: 0.5em;
   font-size: 0.75em;
   font-weight: bold;
+  margin-bottom: 1em;
 }
 
 .studio {

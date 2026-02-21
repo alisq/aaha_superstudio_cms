@@ -3,7 +3,7 @@ import { slugify } from "../utils/slugify";
 import parse from "html-react-parser";
 import submissions from '../data/submissions.json';
 import studiosData from '../data/studios.json';
-import MenuModal from "./menuModal";
+
 
 const allStudios = studiosData.map(studio => `${(studio.title || '').trim()} — ${(studio.school || '').trim()}`);
 
@@ -29,6 +29,7 @@ function FiltersList({ activeFilter, setActiveFilter }) {
                 submission.Demands.split("—, ").forEach(demand => {
                     const trimmed = demand.replace("—", "").trim();
                     if (trimmed) {
+                        
                         demandSet.add(trimmed);
                     }
                 });

@@ -14,7 +14,7 @@ const demandClasses = Demands
   .split("—, ")
   .map(s => "d_"+slugify(s.trim()))
   .join(' ');
-
+console.log(demandClasses)
 const studioClass = Home_Studio
   ? "s_"+slugify(Home_Studio.split(" — ")[0])
   : '';
