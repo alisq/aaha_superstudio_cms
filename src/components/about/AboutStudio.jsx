@@ -4,6 +4,7 @@ function AboutStudio({ title, desc, school, teacher, demands, isOpen, term, leve
   return (
     <li className={`about-studio ${isOpen ? "about-studio--open" : ""}`}>
       <div className="about-studio-header" onClick={onClick}>
+        
         <h4><span className="about-studio-triangle">&#9656;</span> {title}</h4>
         <h5>{school}</h5>
       </div>

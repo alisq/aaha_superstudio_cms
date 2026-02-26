@@ -432,7 +432,7 @@ hr {
         text-indent: -0.75rem;
 
         .studio-triangle {
-            display: inline-block;
+            // display: inline-block;
             color: $accent;
             width: 0.5rem;
             font-size: 1.25rem;
@@ -561,7 +561,7 @@ hr {
             padding-top: 1rem;
             max-height: 60rem;
 
-            .about-studio-triangle {
+            & .about-studio-triangle {
                 transform: rotate(90deg);
             }
 
@@ -584,7 +584,7 @@ hr {
             text-indent: -0.75rem;
 
             .about-studio-triangle {
-                display: inline-block;
+                // display: inline-block;
                 color: $accent;
                 width: 0.5rem;
                 font-size: 1.25rem;

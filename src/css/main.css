@@ -628,7 +628,6 @@ hr {
   text-indent: -0.75rem;
 }
 .studio h4 .studio-triangle {
-  display: inline-block;
   color: #c48726;
   width: 0.5rem;
   font-size: 1.25rem;
@@ -750,7 +749,6 @@ hr {
   text-indent: -0.75rem;
 }
 .about-page .about-studio h4 .about-studio-triangle {
-  display: inline-block;
   color: #c48726;
   width: 0.5rem;
   font-size: 1.25rem;
