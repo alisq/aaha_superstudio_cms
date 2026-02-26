@@ -3,8 +3,7 @@ import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router
 import FiltersList from './components/filtersList';
 import SubmissionList from './components/submissionList';
 import SubmissionFull from './components/submissionFull';
-// import StudioList from './components/studioList';
-// import Studio from './components/studio';
+
 import Header from './components/header';
 import Footer from './components/footer';
 import StudioPage from './components/studioPage';
@@ -28,6 +27,8 @@ function HomePage() {
   }, [location.search]);
 
   return (
+<>
+    
     <div className="home-layout">
       
       <section className="filters-section">
@@ -35,6 +36,7 @@ function HomePage() {
       </section>
       <SubmissionList activeFilter={activeFilter} />
     </div>
+    </>
   );
 }
 

@@ -169,9 +169,7 @@ function FiltersList({ activeFilter, setActiveFilter }) {
 
     return(
         <section id="filters" className="filters" ref={filtersRef}>
-     <a href="#about">
-  <h5>About the Superstudio</h5>
-</a>
+   
 
             <FilterDropdown
                 id="studio-filter"
@@ -230,6 +228,9 @@ function FiltersList({ activeFilter, setActiveFilter }) {
                     })}
                 </div>
             </div>
+              <a href="#about">
+  <h5>About the Superstudio</h5>
+</a>
         </section>
     )
 }
