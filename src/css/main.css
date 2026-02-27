@@ -529,6 +529,9 @@ header {
   position: sticky;
   bottom: 1rem;
 }
+.submission-full-container .submission-poster-image {
+  margin-bottom: 2rem;
+}
 .submission-full-container .submission-poster-image img {
   display: block;
   max-height: 90vh;

@@ -309,11 +309,15 @@ header {
     }
 
 
-    .submission-poster-image img{
-        display:block;
-        max-height:90vh;
-        max-width:100%;
-        margin:auto;
+    .submission-poster-image {
+            margin-bottom:2rem;
+
+        & img{
+            display:block;
+            max-height:90vh;
+            max-width:100%;
+            margin:auto;
+        }
     }
     .back-button {
         padding: 0.5em 1em;
@@ -560,7 +564,7 @@ hr {
         &.about-studio--open {
             padding-top: 1rem;
             max-height: 60rem;
-
+ 
             & .about-studio-triangle {
                 transform: rotate(90deg);
             }
