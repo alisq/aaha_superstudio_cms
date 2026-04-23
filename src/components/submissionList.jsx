@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { slugify } from '../utils/slugify';
-import submissions from '../data/submissions.json';
+import submissions from '../data/submissionsAll';
 import SubmissionTeaser from './submissionTeaser';
 
 function shuffle(array) {

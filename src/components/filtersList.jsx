@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { slugify } from "../utils/slugify";
 import parse from "html-react-parser";
-import submissions from '../data/submissions.json';
+import submissions from '../data/submissionsAll';
 import studiosData from '../data/studios.json';
 
 

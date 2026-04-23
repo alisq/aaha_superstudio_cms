@@ -8,7 +8,7 @@ import Header from './components/header';
 import Footer from './components/footer';
 import StudioPage from './components/studioPage';
 import AboutPage from './components/about/AboutPage';
-import submissions from './data/submissions.json';
+import submissions from './data/submissionsAll';
 import { slugify } from './utils/slugify';
 import './css/main.css'; 
 
