@@ -272,6 +272,16 @@ a.demand-tag {
   transform: translateY(-14px) rotate(-45deg);
 }
 
+footer {
+  min-height: 100vh;
+  background: #383131;
+  padding: 3rem;
+  box-sizing: border-box;
+}
+footer ul li a:link, footer ul li a:visited {
+  color: #FFFFFF;
+}
+
 body {
   background: #FFFFFF;
   color: #383131;
@@ -597,51 +607,51 @@ hr {
   margin-bottom: 1em;
 }
 
-.studio {
+.about-studio {
   list-style: none;
   transition: padding 0.5s ease-in;
 }
-.studio .studio-body {
+.about-studio .about-studio-body {
   transition: max-height 0.5s ease-in;
   max-height: 0;
   overflow: hidden;
 }
-.studio .studio-body p {
+.about-studio .about-studio-body p {
   margin-top: 0.5rem;
 }
-.studio.studio--open {
+.about-studio.about-studio--open {
   padding-top: 1rem;
   max-height: 60rem;
 }
-.studio.studio--open .studio-triangle {
+.about-studio.about-studio--open .about-studio-triangle {
   transform: rotate(90deg);
 }
-.studio.studio--open .studio-body {
+.about-studio.about-studio--open .about-studio-body {
   max-height: 50rem;
 }
-.studio .studio-header {
+.about-studio .studio-header {
   cursor: pointer;
 }
-.studio h4, .studio h5, .studio h6 {
+.about-studio h4, .about-studio h5, .about-studio h6 {
   text-align: left;
   padding: 0 0 0 1.5rem;
   margin: 0;
 }
-.studio h4 {
+.about-studio h4 {
   text-indent: -0.75rem;
 }
-.studio h4 .studio-triangle {
+.about-studio h4 .studio-triangle {
   color: #c48726;
   width: 0.5rem;
   font-size: 1.25rem;
   transform-origin: -7px 15px;
   transition: transform 0.25s;
 }
-.studio h6 {
+.about-studio h6 {
   font-size: 1rem;
   font-weight: normal;
 }
-.studio h6 label {
+.about-studio h6 label {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: #c48726;

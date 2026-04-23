@@ -2,6 +2,7 @@
 @use 'reset.scss';
 @use 'typography.scss';
 @use 'menu.scss';
+@use 'footer.scss';
 
 body {
     background:$bgColor;
@@ -394,12 +395,12 @@ hr {
     margin-bottom:1em;
     
 }
-.studio {
+.about-studio {
     list-style: none;
     transition: padding 0.5s ease-in;
     
 
-    .studio-body {
+    .about-studio-body {
         transition: max-height 0.5s ease-in;
         max-height: 0;
         overflow: hidden;
@@ -409,15 +410,15 @@ hr {
         }
     }
 
-    &.studio--open {
+    &.about-studio--open {
         padding-top: 1rem;
         max-height: 60rem;
 
-        .studio-triangle {
+        .about-studio-triangle {
             transform: rotate(90deg);
         }
 
-        .studio-body {
+        .about-studio-body {
             max-height: 50rem;
         }
     }
