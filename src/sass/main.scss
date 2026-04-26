@@ -502,10 +502,10 @@ hr {
 
     .about-column {
         width: 25vw;
-        min-height: 100vh;
-        overflow-y: scroll;
+        min-height: auto;
+        overflow-y: visible;
         overflow-x: hidden;
-        overscroll-behavior: contain;
+        overscroll-behavior: auto;
 
         .about-column-header {
             min-height: 10rem;

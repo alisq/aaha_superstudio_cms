@@ -262,6 +262,12 @@ a.demand-tag {
 .burger:hover .burger__line {
   background: #c48726;
 }
+.burger.is-open .burger__line {
+  background: #c48726;
+}
+.burger.is-open:hover .burger__line {
+  background: #FFFFFF;
+}
 .burger.is-open .burger__line:nth-child(1) {
   transform: translateY(14px) rotate(45deg);
 }
@@ -273,15 +279,90 @@ a.demand-tag {
 }
 
 footer {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
   min-height: 100vh;
+  align-items: end;
   background: #383131;
   padding: 3rem;
   box-sizing: border-box;
+  color: #FFFFFF;
 }
 footer ul li a:link, footer ul li a:visited {
   color: #FFFFFF;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+footer ul li a:hover {
+  color: #c48726;
+}
+footer a,
+footer a:link,
+footer a:visited {
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+footer a:hover,
+footer a:focus-visible {
+  color: #c48726;
+}
+footer h2 {
+  font-size: 2rem;
+  text-align: left;
+  padding: 0;
+  font-family: AAHA;
+}
+footer .social-links {
+  font-size: 3em;
+  margin-bottom: 1rem;
 }
 
+.half-column {
+  width: 50%;
+}
+
+.footer-left,
+.footer-right {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.footer-menu {
+  margin-top: 1rem;
+}
+
+.footer-menu li {
+  font-size: 6em;
+  list-style-type: none;
+  font-family: AAHA;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  footer {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    row-gap: 2rem;
+    min-height: auto;
+    align-items: start;
+  }
+  .footer-left,
+  .footer-right {
+    height: auto;
+    justify-content: flex-start;
+  }
+  .half-column {
+    width: 100%;
+  }
+  .footer-menu li {
+    font-size: 3em;
+  }
+}
 body {
   background: #FFFFFF;
   color: #383131;
@@ -692,10 +773,10 @@ hr {
 }
 .about-page .about-column {
   width: 25vw;
-  min-height: 100vh;
-  overflow-y: scroll;
+  min-height: auto;
+  overflow-y: visible;
   overflow-x: hidden;
-  overscroll-behavior: contain;
+  overscroll-behavior: auto;
 }
 .about-page .about-column .about-column-header {
   min-height: 10rem;

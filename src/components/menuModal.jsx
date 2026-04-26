@@ -1,41 +1,44 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function MenuModal() {
+  const [footerMajorityInView, setFooterMajorityInView] = useState(false);
 
-  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const footerEl = document.getElementById("site-footer");
+    if (!footerEl) return;
 
-  const toggleMenu = () => {
-    setOpen(prev => !prev);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        setFooterMajorityInView(entry.isIntersecting && entry.intersectionRatio >= 0.5);
+      },
+      { threshold: [0, 0.5, 1] }
+    );
+
+    observer.observe(footerEl);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleClick = () => {
+    if (footerMajorityInView) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    document.getElementById("site-footer")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <>
       <button
-        className={`burger ${open ? "is-open" : ""}`}
-        aria-expanded={open}
-        onClick={toggleMenu}
+        className={`burger ${footerMajorityInView ? "is-open" : ""}`}
+        aria-label={footerMajorityInView ? "Back to top" : "Scroll to footer"}
+        onClick={handleClick}
       >
         <span className="burger__line"></span>
         <span className="burger__line"></span>
         <span className="burger__line"></span>
       </button>
-
-      <nav className={`overlay ${open ? "show" : ""}`}>
-        <ul className="menu">
-          <li>
-            <Link to="/about" onClick={toggleMenu}>
-              about the superstudio
-            </Link>
-          </li>
-
-          <li>
-            <Link to="/" onClick={toggleMenu}>
-              student work
-            </Link>
-          </li>
-        </ul>
-      </nav>
     </>
   );
 }

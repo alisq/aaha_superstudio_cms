@@ -80,7 +80,22 @@ function normalizeSubmission(raw) {
     };
 }
 
-const submissionsAll = submissions1Raw.map(normalizeSubmission);
+function dedupeKey(s) {
+    const title = String(s.Project_Title ?? '').trim();
+    const students = String(s.Student_Names ?? '').trim();
+    return `${title}\0${students}`;
+}
+
+const seen = new Set();
+const submissionsAll = submissions1Raw
+    .map(normalizeSubmission)
+    .filter((s) => {
+        const k = dedupeKey(s);
+        if (!k || k === '\0') return true;
+        if (seen.has(k)) return false;
+        seen.add(k);
+        return true;
+    });
 
 export default submissionsAll;
 

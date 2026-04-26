@@ -81,6 +81,14 @@
   }
 
   &.is-open {
+    .burger__line {
+      background: $accent;
+    }
+
+    &:hover .burger__line {
+      background: $bgColor;
+    }
+
     .burger__line:nth-child(1) {
       transform: translateY(14px) rotate(45deg);
     }

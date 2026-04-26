@@ -38,7 +38,7 @@ const studioClass = Home_Studio
 
   <label>Student{(Student_Names.split(",").length > 1) && ("s")}:</label> {Student_Names}<br />
 
-  <label>Home Studio:</label>{Home_Studio.split(" — ")[0]}<br />
+  <label>Home Studio:</label> {Home_Studio.split(" — ")[0]}<br />
 <label>School:</label> {Home_Studio.split(" — ")[1]}<br />
 
  </div>
