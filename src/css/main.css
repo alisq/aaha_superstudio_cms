@@ -281,6 +281,7 @@ a.demand-tag {
 footer {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  grid-gap: 2rem;
   min-height: 100vh;
   align-items: end;
   background: #383131;
@@ -334,13 +335,21 @@ footer .social-links {
   margin-top: 1rem;
 }
 
-.footer-menu li {
+ul.footer-menu {
+  list-style: circle;
+}
+ul.footer-menu li {
   font-size: 6em;
   list-style-type: none;
   font-family: AAHA;
-  padding: 0;
+  padding: 1rem 0;
   margin: 0;
   line-height: 1;
+  border-bottom: 1px solid #c48726;
+  color: red;
+}
+ul.footer-menu li:first-child {
+  border-top: 1px solid #c48726;
 }
 
 @media (max-width: 768px) {
@@ -510,12 +519,12 @@ header {
   display: inline-block;
 }
 .filter-tag-button:hover {
-  background: rgba(196, 135, 38, 0.15);
+  background: #c48726;
+  color: #FFFFFF;
 }
 .filter-tag-button.filter-tag-button--active {
   background: #c48726;
   color: #FFFFFF;
-  font-weight: bold;
 }
 
 .filter-tags {
@@ -872,6 +881,17 @@ hr {
   margin-left: -0.5rem;
 }
 
+@media (min-width: 801px) and (max-width: 1150px) {
+  .home-layout {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .submission-list {
+    column-count: 2;
+  }
+  .half-column {
+    width: 100%;
+  }
+}
 @media (min-width: 801px) {
   .mobile-header {
     display: none;

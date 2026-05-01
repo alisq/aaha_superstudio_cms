@@ -3,6 +3,7 @@
 footer {
     display:grid;
     grid-template-columns: 2fr 1fr;
+    grid-gap:2rem;
     min-height:100vh;
     align-items: end;
     background:$fColor;
@@ -62,13 +63,27 @@ footer {
 .footer-menu {
     margin-top:1rem;
 }
-.footer-menu li {
+ul.footer-menu  {
+
+    list-style:circle;
+
+& li {
     font-size:6em;
     list-style-type:none;
+
     font-family: AAHA;;
-    padding:0;
+    padding:1rem 0;
     margin:0;
     line-height:1;
+    border-bottom:1px solid $accent;
+
+    color:red;
+
+    &:first-child {
+        border-top:1px solid $accent;
+
+    }
+}
 }
 
 @media (max-width: 768px) {

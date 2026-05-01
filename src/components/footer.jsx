@@ -54,7 +54,7 @@ function Footer() {
 
             <div className="half-column">
               <p>End Housing Alienation Now is generously supported by:</p>
-              <a href="https://study-architecture.ca/" target="_blank" rel="noreferrer noopener"><img src="/files/logos/CCUSA_CCEUA_Logo.png" alt="Canadian Council of University Schools of Architecture" /></a>
+              <a href="https://study-architecture.ca/" target="_blank" rel="noreferrer noopener"><img src="files/logos/CCUSA_CCEUA_Logo.png" alt="Canadian Council of University Schools of Architecture" /></a>
             </div>
           </div>
         </footer>

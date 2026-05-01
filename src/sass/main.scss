@@ -175,13 +175,14 @@ header {
     display: inline-block;
 
     &:hover {
-        background: rgba($accent, 0.15);
+        background: rgba($accent, 1);
+        color: $bgColor;
     }
 
     &.filter-tag-button--active {
         background: $accent;
         color: $bgColor;
-        font-weight: bold;
+        // font-weight: bold;
     }
 }
 
@@ -629,11 +630,35 @@ hr {
    
 }
 
+
+
+@media (min-width: 801px) and (max-width: 1150px) {
+
+
+    .home-layout {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .submission-list {
+        column-count: 2;
+    }
+
+    .half-column {
+        width:100%;
+    }
+
+}
+
+
+
+
+
+
 @media (min-width: 801px) {
     .mobile-header {
         display: none;
     }
 }
+
 
 @media (max-width: 800px) {
 
@@ -644,9 +669,11 @@ hr {
     .filters-section {
         position:static;
     }
-     .mobile-header {
-            display: block;
-        }
+    
+    .mobile-header {
+        display: block;
+    }
+    
     .about-page {
         .about-container {
             display: block;
