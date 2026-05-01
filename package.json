@@ -2,7 +2,7 @@
   "name": "AAHA Superstudio Online Exhibition",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://alisq.github.io/ss_demo",
+  "homepage": "https://superstudio.aaha.ca",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.2.0",
     "@sanity/color-input": "^6.0.3",
