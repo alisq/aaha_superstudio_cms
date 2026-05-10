@@ -31,7 +31,7 @@ const studioClass = Home_Studio
       style={{ cursor: 'pointer' }}
     >
       
-          <img src={fullPosterImagePath} alt={Project_Title} />
+          <img src={fullPosterImagePath} loading="lazy" alt={Project_Title} />
         
         <div>
         <h3 className="submission-teaser-title">{Project_Title}</h3>
