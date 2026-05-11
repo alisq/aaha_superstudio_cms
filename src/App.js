@@ -3,7 +3,7 @@ import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router
 import FiltersList from './components/filtersList';
 import SubmissionList from './components/submissionList';
 import SubmissionFull from './components/submissionFull';
-
+import ReactGA from 'react-ga4';
 import Header from './components/header';
 import Footer from './components/footer';
 import StudioPage from './components/studioPage';
@@ -16,6 +16,7 @@ import './css/main.css';
 function HomePage() {
   const [activeFilter, setActiveFilter] = useState(null);
   const location = useLocation();
+  ReactGA.initialize("G-95XVYX70XD");
 
   // Get filter from URL query params if present
   useEffect(() => {
