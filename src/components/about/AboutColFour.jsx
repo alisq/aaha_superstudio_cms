@@ -7,17 +7,48 @@ function AboutColFour() {
         
         <div className="about-column-content">
           <div className="about-section" id="superstudio_talks">
-            <h3>Superstudio Talks</h3>
+            <h3>Winter 2026 Superstudio Talks</h3>
+            <YoutubeEmbed url="https://youtu.be/LinSvs2b1ys?si=KKWaWwgc0TBfDZKR" />
+            <p><strong>David Fortin, AAHA Organizer / University of Waterloo:<br />Housing and Reconciliation</strong>
+            <h5>January 8, 2026</h5></p>
+            <YoutubeEmbed url="https://youtu.be/sDt5bwhQet8?si=gwFtbVnaz2S3zsa7" />
+            <p><strong>Anne Cormier + Frédéric Dubé, Université de Montréal:<br />Habiter Montréal</strong>
+            <h5>January 22, 2026</h5></p>
+            <YoutubeEmbed url="https://youtu.be/gNeDUu_mj-E?si=Bv9kbQK4tZupqmmr" />
+            <p><strong>Cheryl Atkinson, Toronto Metropolitan University:<br />Living Close</strong>
+            <h5>January 29, 2026</h5></p>
+            <YoutubeEmbed url="https://youtu.be/iFdIu2AtyjA?si=52g1-2O9gwRHsoaz" />
+            <p><strong>Shirley Shen + Travis Hanks, Haeccity Studio, BCIT:<br />Collective Typologies for Anti-Speculative Housing</strong>
+            <h5>February 5, 2026</h5></p>
+            <YoutubeEmbed url="https://youtu.be/ImRJrzgED20?si=-TZ5wSh9CW7aUBCa" />
+            <p><strong>Cheryl Giraudy, OCAD University:<br />Residential Inclusivity: Community &amp; Placemaking</strong>
+            <h5>February 26, 2026</h5></p>
+            <YoutubeEmbed url="https://youtu.be/i4yxH4s9Jxk?si=yohLW3gCRQ_ioyc3" />
+            <p><strong>Shawn Bailey, University of Manitoba:<br />Relational Housing</strong>
+            <h5>March 5, 2026</h5></p>
+            <YoutubeEmbed url="https://youtu.be/u0q-Ojgv7gw?si=NYDM6Lfn9L2T4diz" />
+            <p><strong>Mauricio Soto Rubio, University of Calgary:<br />The Porous Dwelling</strong>
+            <h5>March 12, 2026</h5></p>
+            <YoutubeEmbed url="https://youtu.be/ultvtEWTkMg?si=DwIbB3E3lTX9JyNw" />
+            <p><strong>Robert Raynor, Toronto Metropolitan University:<br />House [verb]</strong>
+            <h5>March 19, 2026</h5></p>
+
+            <h3>Fall 2025 Superstudio Talks</h3>
             <YoutubeEmbed url="https://www.youtube.com/watch?v=hft4HpPxRrw" />
-            <p><strong>Adrian Blackwell:<br />Infill as Relational Architecture</strong><br />October 2, 2025</p>
+            <p><strong>Adrian Blackwell:<br />Infill as Relational Architecture</strong>
+            <h5>October 2, 2025</h5></p>
             <YoutubeEmbed url="https://www.youtube.com/watch?v=fQABQzZLuH0" />
-            <p><strong>Inge Roecker<br />Homing</strong><br />October 24, 2025</p>
+            <p><strong>Inge Roecker<br />Homing</strong>
+            <h5>October 24, 2025</h5></p>
             <YoutubeEmbed url="https://www.youtube.com/watch?v=WDa7_JV8E6I" />
-            <p><strong>Barry Johns:<br />BAAKFIL and the Housing Crisis</strong><br />October 20, 2025</p>
+            <p><strong>Barry Johns:<br />BAAKFIL and the Housing Crisis</strong>
+            <h5>October 20, 2025</h5></p>
             <YoutubeEmbed url="https://www.youtube.com/watch?v=LqUiKCtNMAM" />
-            <p><strong>Matthew Soules:<br />Architecture and Financialization</strong><br />October 30, 2025</p>
+            <p><strong>Matthew Soules:<br />Architecture and Financialization</strong>
+            <h5>October 30, 2025</h5></p>
             <YoutubeEmbed url="https://www.youtube.com/watch?v=DdrUNEaNaa0" />
-            <p><strong>Karen Kubey:<br />The Right to Housing is Architectural</strong><br />November 6, 2025</p>
+            <p><strong>Karen Kubey:<br />The Right to Housing is Architectural</strong>
+            <h5>November 6, 2025</h5></p>
           </div>
           <div className="about-section" id="participating_institutions">
             <h3 className="about-sticky">Participating Institutions</h3>
