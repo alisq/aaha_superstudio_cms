@@ -51,7 +51,7 @@ function SubmissionList({ activeFilter }) {
             className="submission-wrapper rolling-down"
             style={{ animationDelay: `${delay}s` }}
           >
-            <Link to={`/submission/${submissionSlug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link to={`/submission/${submissionSlug}`} style={{ textDecoration: 'none', color: 'inherit' }} onClick={() => window.scrollTo(0, 0)}>
               <SubmissionTeaser {...item} />
             </Link>
           </div>
