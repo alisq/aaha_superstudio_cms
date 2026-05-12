@@ -10,8 +10,15 @@ import StudioPage from './components/studioPage';
 import AboutPage from './components/about/AboutPage';
 import submissions from './data/submissionsAll';
 import { slugify } from './utils/slugify';
-import './css/main.css'; 
+import './css/main.css';
 
+function ScrollToTop() {
+  const { pathname, search } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname, search]);
+  return null;
+}
 
 function HomePage() {
   const [activeFilter, setActiveFilter] = useState(null);
@@ -71,6 +78,7 @@ function SubmissionPage() {
 function App() {
   return (
     <div className="App">
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />

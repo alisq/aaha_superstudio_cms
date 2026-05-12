@@ -57,8 +57,9 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
           <br />
           <label>Demands:</label> 
           
-            {Demands.split("—, ").map((demand, index) => {
+            {(Demands ?? '').split("—, ").map((demand, index) => {
               const trimmedDemand = demand.replace("—", "").trim();
+              if (trimmedDemand === '') return null;
               const filterClass = `d_${slugify(trimmedDemand)}`;
               return (
                 <div key={index}>

@@ -623,7 +623,6 @@ header {
   display: block;
   filter: grayscale(1);
   transition: filter 0.2s;
-  background: #000;
 }
 .submission-teaser > img {
   display: block;
