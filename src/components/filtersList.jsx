@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { slugify } from "../utils/slugify";
+import { parseStudentNames } from "../utils/studentNames";
 import parse from "html-react-parser";
 import submissions from '../data/submissionsAll';
 import studiosData from '../data/studios.json';
@@ -9,13 +10,16 @@ const allStudios = studiosData.map(studio => `${(studio.title || '').trim()} —
 
 function FiltersList({ activeFilter, setActiveFilter }) {
     const [openDropdown, setOpenDropdown] = useState(null);
+    const [studentAutocompleteOpen, setStudentAutocompleteOpen] = useState(false);
+    const [studentQuery, setStudentQuery] = useState("");
     const filtersRef = useRef(null);
 
     // Extract unique values from submissions
-    const { studios, demands, tags } = useMemo(() => {
+    const { studios, demands, tags, studentNames } = useMemo(() => {
         const studioSet = new Set();
         const demandSet = new Set();
         const tagSet = new Set();
+        const studentSet = new Set();
 
         submissions.forEach(submission => {
             // Extract studios
@@ -44,6 +48,10 @@ function FiltersList({ activeFilter, setActiveFilter }) {
                     }
                 });
             }
+
+            parseStudentNames(submission.Student_Names).forEach(name => {
+                studentSet.add(name);
+            });
         });
 
         // Studios: filter studios.json list to only those with submissions
@@ -55,11 +63,15 @@ function FiltersList({ activeFilter, setActiveFilter }) {
         // Demands and tags: master lists are built from cited values in submissions
         const demands = Array.from(demandSet).sort();
         const tags = Array.from(tagSet).sort();
+        const studentNames = Array.from(studentSet).sort((a, b) =>
+            a.localeCompare(b, undefined, { sensitivity: 'base' })
+        );
 
         return {
             studios: filteredStudios,
             demands,
-            tags
+            tags,
+            studentNames
         };
     }, []);
 
@@ -68,17 +80,27 @@ function FiltersList({ activeFilter, setActiveFilter }) {
         const handleClickOutside = (event) => {
             if (filtersRef.current && !filtersRef.current.contains(event.target)) {
                 setOpenDropdown(null);
+                setStudentAutocompleteOpen(false);
             }
         };
 
-        if (openDropdown) {
+        if (openDropdown || studentAutocompleteOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         }
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [openDropdown]);
+    }, [openDropdown, studentAutocompleteOpen]);
+
+    useEffect(() => {
+        if (activeFilter && activeFilter.startsWith('n_')) {
+            const name = studentNames.find(item => `n_${slugify(item)}` === activeFilter);
+            setStudentQuery(name || "");
+        } else {
+            setStudentQuery("");
+        }
+    }, [activeFilter, studentNames]);
 
     const handleFilterSelect = (filterClass, categoryPrefix) => {
         // If "All" is selected (empty string), clear the filter if it belongs to this category
@@ -93,7 +115,38 @@ function FiltersList({ activeFilter, setActiveFilter }) {
     };
 
     const toggleDropdown = (dropdownId) => {
+        setStudentAutocompleteOpen(false);
         setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
+    };
+
+    const studentSuggestions = useMemo(() => {
+        const query = studentQuery.trim().toLowerCase();
+        if (!query) return [];
+        return studentNames.filter(name => name.toLowerCase().includes(query)).slice(0, 20);
+    }, [studentQuery, studentNames]);
+
+    const handleStudentQueryChange = (event) => {
+        const value = event.target.value;
+        setStudentQuery(value);
+        setStudentAutocompleteOpen(true);
+        setOpenDropdown(null);
+
+        if (value === "" && activeFilter && activeFilter.startsWith('n_')) {
+            setActiveFilter(null);
+        }
+    };
+
+    const handleStudentSelect = (name) => {
+        if (!name) {
+            if (activeFilter && activeFilter.startsWith('n_')) {
+                setActiveFilter(null);
+            }
+            setStudentQuery("");
+        } else {
+            setActiveFilter(`n_${slugify(name)}`);
+            setStudentQuery(name);
+        }
+        setStudentAutocompleteOpen(false);
     };
 
     // Get the current display value for each dropdown
@@ -197,6 +250,51 @@ function FiltersList({ activeFilter, setActiveFilter }) {
                 categoryPrefix="d_"
                 getFilterClass={(item) => `d_${slugify(item)}`}
             />
+
+            <div className="filter-dropdown filter-student-autocomplete">
+                <div className="dropdown-wrapper">
+                    <input
+                        type="text"
+                        className="student-autocomplete-input"
+                        placeholder="All Students"
+                        value={studentQuery}
+                        onChange={handleStudentQueryChange}
+                        onFocus={() => {
+                            setStudentAutocompleteOpen(true);
+                            setOpenDropdown(null);
+                        }}
+                        aria-haspopup="listbox"
+                        aria-label="Filter by student name"
+                    />
+                    <div className={`dropdown-menu ${studentAutocompleteOpen && studentSuggestions.length > 0 ? 'open' : ''}`}>
+                        {(activeFilter && activeFilter.startsWith('n_') && !studentAutocompleteOpen) && (
+                            <button
+                                type="button"
+                                className="dropdown-option"
+                                onClick={() => handleStudentSelect("")}
+                            >
+                                All Students
+                            </button>
+                        )}
+                        {studentSuggestions.map((name, index) => {
+                            const filterClass = `n_${slugify(name)}`;
+                            const isActive = activeFilter === filterClass;
+                            const delay = (index + 1) * 0.02;
+                            return (
+                                <button
+                                    key={name}
+                                    type="button"
+                                    className={`dropdown-option ${isActive ? 'active' : ''} ${studentAutocompleteOpen ? 'rolling-down' : 'rolling-up'}`}
+                                    style={{ animationDelay: `${delay}s` }}
+                                    onClick={() => handleStudentSelect(name)}
+                                >
+                                    {name}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
             
             <div className="filter-tags">
                 <label className="filter-tags-label">Tags</label>

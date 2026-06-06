@@ -154,6 +154,31 @@ header {
     }
 }
 
+.filter-student-autocomplete {
+    .student-autocomplete-input {
+        width: 100%;
+        padding: 0.5em;
+        background: white;
+        border: 1px solid $accent;
+        font-family: freight-text-pro, serif;
+        font-weight: bold;
+        box-sizing: border-box;
+
+        &::placeholder {
+            color: inherit;
+            opacity: 1;
+        }
+
+        &:focus {
+            outline: none;
+
+            &::placeholder {
+                opacity: 0;
+            }
+        }
+    }
+}
+
 // Shared tag-button pattern (filter sidebar + submission full page)
 .filter-tag-buttons {
     display: flex;

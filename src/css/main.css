@@ -499,6 +499,26 @@ header {
   border-bottom: none;
 }
 
+.filter-student-autocomplete .student-autocomplete-input {
+  width: 100%;
+  padding: 0.5em;
+  background: white;
+  border: 1px solid #c48726;
+  font-family: freight-text-pro, serif;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+.filter-student-autocomplete .student-autocomplete-input::placeholder {
+  color: inherit;
+  opacity: 1;
+}
+.filter-student-autocomplete .student-autocomplete-input:focus {
+  outline: none;
+}
+.filter-student-autocomplete .student-autocomplete-input:focus::placeholder {
+  opacity: 0;
+}
+
 .filter-tag-buttons {
   display: flex;
   flex-wrap: wrap;
