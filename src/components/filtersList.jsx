@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { slugify } from "../utils/slugify";
-import { parseStudentNames } from "../utils/studentNames";
+import { parseStudentNames, findSubmissionByStudentName } from "../utils/studentNames";
 import parse from "html-react-parser";
 import submissions from '../data/submissionsAll';
 import studiosData from '../data/studios.json';
@@ -9,6 +10,7 @@ import studiosData from '../data/studios.json';
 const allStudios = studiosData.map(studio => `${(studio.title || '').trim()} — ${(studio.school || '').trim()}`);
 
 function FiltersList({ activeFilter, setActiveFilter }) {
+    const navigate = useNavigate();
     const [openDropdown, setOpenDropdown] = useState(null);
     const [studentAutocompleteOpen, setStudentAutocompleteOpen] = useState(false);
     const [studentQuery, setStudentQuery] = useState("");
@@ -93,15 +95,6 @@ function FiltersList({ activeFilter, setActiveFilter }) {
         };
     }, [openDropdown, studentAutocompleteOpen]);
 
-    useEffect(() => {
-        if (activeFilter && activeFilter.startsWith('n_')) {
-            const name = studentNames.find(item => `n_${slugify(item)}` === activeFilter);
-            setStudentQuery(name || "");
-        } else {
-            setStudentQuery("");
-        }
-    }, [activeFilter, studentNames]);
-
     const handleFilterSelect = (filterClass, categoryPrefix) => {
         // If "All" is selected (empty string), clear the filter if it belongs to this category
         if (filterClass === "") {
@@ -126,27 +119,21 @@ function FiltersList({ activeFilter, setActiveFilter }) {
     }, [studentQuery, studentNames]);
 
     const handleStudentQueryChange = (event) => {
-        const value = event.target.value;
-        setStudentQuery(value);
+        setStudentQuery(event.target.value);
         setStudentAutocompleteOpen(true);
         setOpenDropdown(null);
-
-        if (value === "" && activeFilter && activeFilter.startsWith('n_')) {
-            setActiveFilter(null);
-        }
     };
 
     const handleStudentSelect = (name) => {
-        if (!name) {
-            if (activeFilter && activeFilter.startsWith('n_')) {
-                setActiveFilter(null);
-            }
-            setStudentQuery("");
-        } else {
-            setActiveFilter(`n_${slugify(name)}`);
-            setStudentQuery(name);
-        }
         setStudentAutocompleteOpen(false);
+        setStudentQuery("");
+
+        if (!name) return;
+
+        const submission = findSubmissionByStudentName(submissions, name);
+        if (submission) {
+            navigate(`/submission/${slugify(submission.Project_Title)}`);
+        }
     };
 
     // Get the current display value for each dropdown
@@ -267,24 +254,13 @@ function FiltersList({ activeFilter, setActiveFilter }) {
                         aria-label="Filter by student name"
                     />
                     <div className={`dropdown-menu ${studentAutocompleteOpen && studentSuggestions.length > 0 ? 'open' : ''}`}>
-                        {(activeFilter && activeFilter.startsWith('n_') && !studentAutocompleteOpen) && (
-                            <button
-                                type="button"
-                                className="dropdown-option"
-                                onClick={() => handleStudentSelect("")}
-                            >
-                                All Students
-                            </button>
-                        )}
                         {studentSuggestions.map((name, index) => {
-                            const filterClass = `n_${slugify(name)}`;
-                            const isActive = activeFilter === filterClass;
                             const delay = (index + 1) * 0.02;
                             return (
                                 <button
                                     key={name}
                                     type="button"
-                                    className={`dropdown-option ${isActive ? 'active' : ''} ${studentAutocompleteOpen ? 'rolling-down' : 'rolling-up'}`}
+                                    className={`dropdown-option ${studentAutocompleteOpen ? 'rolling-down' : 'rolling-up'}`}
                                     style={{ animationDelay: `${delay}s` }}
                                     onClick={() => handleStudentSelect(name)}
                                 >

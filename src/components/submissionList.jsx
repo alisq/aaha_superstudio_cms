@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { slugify } from '../utils/slugify';
-import { parseStudentNames } from '../utils/studentNames';
 import submissions from '../data/submissionsAll';
 import SubmissionTeaser from './submissionTeaser';
 
@@ -33,11 +32,8 @@ function SubmissionList({ activeFilter }) {
         const studioClass = item.Home_Studio
           ? ["s_" + slugify(item.Home_Studio.split(" — ")[0])]
           : [];
-        const studentClasses = parseStudentNames(item.Student_Names).map(
-          (name) => "n_" + slugify(name)
-        );
 
-        const allClasses = [...tagClasses, ...demandClasses, ...studioClass, ...studentClasses];
+        const allClasses = [...tagClasses, ...demandClasses, ...studioClass];
         return allClasses.includes(activeFilter);
       })
     : items;
