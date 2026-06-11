@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 import parse from 'html-react-parser';
 import { slugify } from '../utils/slugify';
+import { getSubmissionStudioFilterClass } from '../utils/studios';
 
 
 
@@ -21,7 +22,7 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
           <label>Home Studio:</label> {Home_Studio && Home_Studio.split(" — ").length > 0 && (
             <Link 
               className="home-studio"
-              to={`/?filter=s_${slugify(Home_Studio.split(" — ")[0])}`}
+              to={`/?filter=${getSubmissionStudioFilterClass(Home_Studio)}`}
               style={{ color: 'inherit' }}
             >
               {Home_Studio.split(" — ")[0]}
@@ -31,7 +32,7 @@ function Submission({Timestamp, Project_Title, Text, Student_Names, Home_Studio,
           <label>School:</label> {Home_Studio && Home_Studio.split(" — ").length > 1 && (
                       <Link 
               className="home-studio"
-              to={`/?filter=s_${slugify(Home_Studio.split(" — ")[0])}`}
+              to={`/?filter=${getSubmissionStudioFilterClass(Home_Studio)}`}
               style={{ color: 'inherit' }}
             >
               {Home_Studio.split(" — ")[1]}

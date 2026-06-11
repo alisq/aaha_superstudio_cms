@@ -2,12 +2,14 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { slugify } from "../utils/slugify";
 import { parseStudentNames, findSubmissionByStudentName } from "../utils/studentNames";
+import {
+    formatStudioLabel,
+    getStudioFilterClass,
+    getStudiosWithSubmissions,
+    studiosData,
+} from "../utils/studios";
 import parse from "html-react-parser";
 import submissions from '../data/submissionsAll';
-import studiosData from '../data/studios.json';
-
-
-const allStudios = studiosData.map(studio => `${(studio.title || '').trim()} — ${(studio.school || '').trim()}`);
 
 function FiltersList({ activeFilter, setActiveFilter }) {
     const navigate = useNavigate();
@@ -18,18 +20,11 @@ function FiltersList({ activeFilter, setActiveFilter }) {
 
     // Extract unique values from submissions
     const { studios, demands, tags, studentNames } = useMemo(() => {
-        const studioSet = new Set();
         const demandSet = new Set();
         const tagSet = new Set();
         const studentSet = new Set();
 
         submissions.forEach(submission => {
-            // Extract studios
-            if (submission.Home_Studio) {
-                const studioName = submission.Home_Studio.split(" — ")[0];
-                studioSet.add(studioName);
-            }
-
             // Extract demands
             if (submission.Demands) {
                 submission.Demands.split("—, ").forEach(demand => {
@@ -56,11 +51,7 @@ function FiltersList({ activeFilter, setActiveFilter }) {
             });
         });
 
-        // Studios: filter studios.json list to only those with submissions
-        const filteredStudios = allStudios.filter(studio => {
-            const studioName = studio.split(" — ")[0];
-            return studioSet.has(studioName);
-        });
+        const studios = getStudiosWithSubmissions(submissions).map(formatStudioLabel);
 
         // Demands and tags: master lists are built from cited values in submissions
         const demands = Array.from(demandSet).sort();
@@ -70,7 +61,7 @@ function FiltersList({ activeFilter, setActiveFilter }) {
         );
 
         return {
-            studios: filteredStudios,
+            studios,
             demands,
             tags,
             studentNames
@@ -139,7 +130,7 @@ function FiltersList({ activeFilter, setActiveFilter }) {
     // Get the current display value for each dropdown
     const getStudioDisplay = () => {
         if (activeFilter && activeFilter.startsWith('s_')) {
-            const studio = studios.find(item => `s_${slugify(item.split(" — ")[0])}` === activeFilter);
+            const studio = studios.find(item => getStudioFilterClass(item.split(" — ")[0]) === activeFilter);
             return studio || "All Studios";
         }
         return (          <label className="filter-tags-label">All Studios</label>);
@@ -156,7 +147,7 @@ function FiltersList({ activeFilter, setActiveFilter }) {
     // Selected studio record for description (when a studio filter is active)
     const selectedStudio = useMemo(() => {
         if (!activeFilter || !activeFilter.startsWith('s_')) return null;
-        return studiosData.find(studio => `s_${slugify((studio.title || '').trim())}` === activeFilter) || null;
+        return studiosData.find(studio => getStudioFilterClass(studio) === activeFilter) || null;
     }, [activeFilter]);
 
     const FilterDropdown = ({ id, label, displayValue, options, categoryPrefix, getFilterClass, extraContent }) => {
@@ -217,7 +208,7 @@ function FiltersList({ activeFilter, setActiveFilter }) {
                 displayValue={getStudioDisplay()}
                 options={studios}
                 categoryPrefix="s_"
-                getFilterClass={(item) => `s_${slugify(item.split(" — ")[0])}`}
+                getFilterClass={(item) => getStudioFilterClass(item.split(" — ")[0])}
                 extraContent={selectedStudio && selectedStudio.desc ? (
                     <div className="filter-studio">
                         <div className="filter-studio-school"><label>School:</label> {selectedStudio.school}</div>

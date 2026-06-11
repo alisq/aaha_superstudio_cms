@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { slugify } from '../utils/slugify';
+import { getSubmissionStudioFilterClass } from '../utils/studios';
 import submissions from '../data/submissionsAll';
 import SubmissionTeaser from './submissionTeaser';
 
@@ -30,7 +31,7 @@ function SubmissionList({ activeFilter }) {
           ? item.Demands.split("—, ").map(s => "d_" + slugify(s.replace("—", "").trim()))
           : [];
         const studioClass = item.Home_Studio
-          ? ["s_" + slugify(item.Home_Studio.split(" — ")[0])]
+          ? [getSubmissionStudioFilterClass(item.Home_Studio)]
           : [];
 
         const allClasses = [...tagClasses, ...demandClasses, ...studioClass];
