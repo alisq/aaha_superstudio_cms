@@ -1,6 +1,16 @@
 import parse from 'html-react-parser';
+import { Link } from 'react-router-dom';
+import { getStudioFilterClass, getStudiosWithSubmissions } from '../../utils/studios';
+import submissions from '../../data/submissionsAll';
+
+const studiosWithWork = new Set(
+  getStudiosWithSubmissions(submissions).map((studio) => getStudioFilterClass(studio))
+);
 
 function AboutStudio({ title, desc, school, teacher, demands, isOpen, term, level, onClick }) {
+  const filterClass = getStudioFilterClass(title);
+  const hasStudentWork = studiosWithWork.has(filterClass);
+
   return (
     <li className={`about-studio ${isOpen ? "about-studio--open" : ""}`}>
       <div className="about-studio-header" onClick={onClick}>
@@ -21,6 +31,11 @@ function AboutStudio({ title, desc, school, teacher, demands, isOpen, term, leve
         <h6><label>term:</label> {term}</h6>
         <h6><label>level:</label> {level}</h6>
         {desc && parse(desc)}
+        {hasStudentWork && (
+          <Link className="about-studio-work-link" to={`/?filter=${filterClass}`}>
+            View student work from this studio
+          </Link>
+        )}
       </div>
     </li>
   );

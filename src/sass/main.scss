@@ -439,6 +439,13 @@ hr {
 .about-studio {
     list-style: none;
     transition: padding 0.5s ease-in;
+
+    .about-studio-work-link {
+        display: inline-block;
+        margin: 0.5em 0 1em;
+        color: $accent;
+        font-weight: bold;
+    }
     
 
     .about-studio-body {

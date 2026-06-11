@@ -10,6 +10,8 @@ footer {
     padding:3rem;
     box-sizing: border-box;
     color:$bgColor;
+    position:relative;
+    z-index:2;
 
     & ul li a:link,
     & ul li a:visited {
