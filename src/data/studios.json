@@ -89,13 +89,15 @@
     "level":"Undergraduate"
   },
     {
-    "title": "The Architecture of Urban Housing",
+    "title": "Everything Is Housing",
     "desc": "<p>Canada faces four simultaneous crises – lucky us – that directly affect the work of architects: a housing crisis, a climate crisis, a homelessness crisis, and a crisis of connection in an alienated world.\n</p>\n<p>\nThrough case studies, guest lectures, and close readings, our class will systematically interrogate the term “house” as both a structure (noun), and as an action with direct cultural, political, economic, and environmental impacts (verb). The goal is to bring a broad practical understanding of the world and industry in which present-day architects work: from how we got here, to historical takes on the future, to where we’re headed and where we still need to grow. In addition, students will cultivate the ability to make connections between a range of typologies, practices, and delivery models, locally and abroad.\n</p>",
     "school": "Toronto Metropolitan University",
-    "demands": 0,
+     "demands": [
+      "Intentional Communities for Unhoused People"
+    ],
     "teacher": "Robert Raynor",
-    "term":"",
-    "level":""
+    "term":"Fall",
+    "level":"Undergraduate and Graduate"
   },
   {
     "title": "Counter Proposal Studio",
@@ -173,7 +175,7 @@
     "level":"Undergraduate"
   },
   {
-    "title": "A Cooperative Housing Trust in Waterloo Region",
+    "title": "Build Now to End Housing Alienation in Waterloo Region",
     "desc": "<p>In the context of deep housing alienation in Canada and calls by the Federal government to rapidly build new homes, this studio partnered with non-profit housing provider Union Cooperative to potentials for cooperative housing in Waterloo Region. Union provided the studio with a list of the addresses and owners of 240 non-profit owned properties in the City of Kitchener. Students began by evaluating the development potential of all these sites based on existing zoning, proximate development precedents, and adjacent context. We passed this preliminary analysis to a class of planning students who then applied planning criteria to rank sites based on priority. Next, our students considered how housing on a first selection of roughly one third of these sites could counter three forms of housing alienation–disconnection from the ecological milieu, from social relations, and from each person's subjective agency–by testing exemplary housing precedents on these sites. Finally, working solo, or in small groups of two or three, students designed affordable and generous multi-unit housing on 33 sites to create new ecological, social and subjective connections for residents. These three projects were each presented to Union Cooperative so they could better understand the housing potentials on non-profit owned sites in the region and explain these possibilities to their owners.</p>",
     "school": "University of Waterloo",
     "demands": [],
